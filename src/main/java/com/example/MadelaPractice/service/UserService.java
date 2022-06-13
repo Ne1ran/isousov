@@ -5,7 +5,6 @@ import com.example.MadelaPractice.exception.UserAlreadyExistsException;
 import com.example.MadelaPractice.exception.UserDoesNotExistException;
 import com.example.MadelaPractice.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service

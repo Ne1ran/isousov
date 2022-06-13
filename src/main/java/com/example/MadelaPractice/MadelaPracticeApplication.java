@@ -11,6 +11,4 @@ public class MadelaPracticeApplication {
 
 		System.out.println("Checkmate");
 	}
-
-
 }

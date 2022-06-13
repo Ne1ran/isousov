@@ -9,6 +9,7 @@ public class OrganizationEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String fullName;
     private String inn;
     private String kpp;
     private String address;
@@ -16,6 +17,14 @@ public class OrganizationEntity {
     private Boolean isActive;
 
     public OrganizationEntity() {
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public Long getId() {

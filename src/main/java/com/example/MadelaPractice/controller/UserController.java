@@ -2,7 +2,6 @@ package com.example.MadelaPractice.controller;
 
 import com.example.MadelaPractice.entity.UserEntity;
 import com.example.MadelaPractice.exception.UserAlreadyExistsException;
-import com.example.MadelaPractice.exception.UserDoesNotExistException;
 import com.example.MadelaPractice.repository.UserRepo;
 import com.example.MadelaPractice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
