@@ -8,17 +8,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("api/organization")
 public class OrganizationController {
 
-    @Autowired
-    private OrganizationRepo organizationRepo;
+    @Autowired OrganizationService organizationService;
 
     @GetMapping("/list")
-    public ResponseEntity getOrganizationsList(@RequestParam String name, @RequestParam String inn, @RequestParam Boolean isActive){
+    public ResponseEntity getOrganizationsList(@RequestBody OrganizationEntity organizationEntity){
         try {
-            return ResponseEntity.ok().body(organizationRepo.findAll());
+            return ResponseEntity.ok().body(organizationService.getOrganizationsListByName(organizationEntity));
         } catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -27,16 +28,16 @@ public class OrganizationController {
     @GetMapping("/{id}")
     public ResponseEntity getOrganizationById(@PathVariable Long id){
         try {
-            return ResponseEntity.ok().body(organizationRepo.findById(id));
+            return ResponseEntity.ok().body(organizationService.getOrgById(id));
         } catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
-    @PostMapping("/update")
-    public ResponseEntity updateOrganization(@RequestBody OrganizationEntity organizationEntity){
+    @PutMapping("/update")
+    public ResponseEntity updateOrganization(@RequestBody @Valid OrganizationEntity organizationEntity){
         try {
-            organizationRepo.save(organizationEntity);
+            organizationService.updateOrganization(organizationEntity);
             return ResponseEntity.ok().body("Updated org!");
         } catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -44,9 +45,9 @@ public class OrganizationController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity saveNewOrganization(@RequestBody OrganizationEntity organizationEntity){
+    public ResponseEntity saveNewOrganization(@RequestBody @Valid OrganizationEntity organizationEntity){
         try {
-            organizationRepo.save(organizationEntity);
+            organizationService.saveOrganization(organizationEntity);
             return ResponseEntity.ok().body("Saved org!");
         } catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());

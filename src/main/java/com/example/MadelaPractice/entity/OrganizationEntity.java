@@ -1,6 +1,7 @@
 package com.example.MadelaPractice.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "organization_entity")
@@ -8,11 +9,17 @@ public class OrganizationEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotEmpty (message = "You didn't type name")
     private String name;
+    @NotEmpty
     private String fullName;
+    @NotEmpty
     private String inn;
+    @NotEmpty
     private String kpp;
+    @NotEmpty
     private String address;
+    @NotEmpty
     private String phone;
     private Boolean isActive;
 

@@ -1,7 +1,7 @@
 package com.example.MadelaPractice.controller;
 
 import com.example.MadelaPractice.entity.UserEntity;
-import com.example.MadelaPractice.exception.UserAlreadyExistsException;
+import com.example.MadelaPractice.exception.EntityAlreadyExistsException;
 import com.example.MadelaPractice.repository.UserRepo;
 import com.example.MadelaPractice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,21 +27,19 @@ public class UserController {
         }
     }
 
-    @PostMapping
-    @RequestMapping("/registration")
+    @PostMapping("/registration")
     public ResponseEntity registerUser(@RequestBody UserEntity userEntity){
         try {
             userService.registation(userEntity);
             return ResponseEntity.ok().body("Registration ok");
-        } catch (UserAlreadyExistsException e){
+        } catch (EntityAlreadyExistsException e){
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e){
             return ResponseEntity.badRequest().body("Unknown Error");
         }
     }
 
-    @GetMapping
-    @RequestMapping("/login")
+    @GetMapping("/login")
     public ResponseEntity login(@RequestParam String login, @RequestParam String password){
         try {
             UserEntity user = userService.login(login, password);
@@ -51,8 +49,7 @@ public class UserController {
         }
     }
 
-    @GetMapping
-    @RequestMapping("/user/list")
+    @GetMapping("/user/list")
     public ResponseEntity getAllUsers(){
         try {
             return ResponseEntity.ok().body(userRepo.findAll());
@@ -61,8 +58,7 @@ public class UserController {
         }
     }
 
-    @GetMapping
-    @RequestMapping("/user/{id}")
+    @GetMapping("/user/{id}")
     public ResponseEntity getOneUserById(@PathVariable Long id){
         try {
 //            UserEntity user = userService.getUser(id);
@@ -72,8 +68,7 @@ public class UserController {
         }
     }
 
-    @PostMapping
-    @RequestMapping("/user/update")
+    @PostMapping("/user/update")
     public ResponseEntity updateUser(@RequestBody UserEntity userEntity){
         try {
             //update
@@ -82,4 +77,8 @@ public class UserController {
         }
         return ResponseEntity.ok().body("123");
     }
+//    @GetMapping("/activation")
+//    public ResponseEntity useActivationCode(){
+//
+//    }
 }

@@ -1,7 +1,7 @@
 package com.example.MadelaPractice.service;
 
 import com.example.MadelaPractice.entity.UserEntity;
-import com.example.MadelaPractice.exception.UserAlreadyExistsException;
+import com.example.MadelaPractice.exception.EntityAlreadyExistsException;
 import com.example.MadelaPractice.exception.UserDoesNotExistException;
 import com.example.MadelaPractice.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +13,9 @@ public class UserService {
     @Autowired
     private UserRepo userRepo;
 
-    public UserEntity registation(UserEntity userEntity) throws UserAlreadyExistsException {
+    public UserEntity registation(UserEntity userEntity) throws EntityAlreadyExistsException {
         if (userRepo.findByLogin(userEntity.getLogin()) != null){
-            throw new UserAlreadyExistsException("User with this login already exists!");
+            throw new EntityAlreadyExistsException("User with this login already exists!");
         }
         return userRepo.save(userEntity);
     }
