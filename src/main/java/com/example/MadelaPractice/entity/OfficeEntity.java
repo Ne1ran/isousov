@@ -1,6 +1,8 @@
 package com.example.MadelaPractice.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "office_entity")
@@ -9,9 +11,13 @@ public class OfficeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long orgId;
+    @NotEmpty
     private String name;
+    @NotEmpty
     private String address;
+    @NotEmpty
     private String phone;
+    @NotNull
     private Boolean isActive;
 
     public OfficeEntity() {

@@ -8,12 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api")
 public class UserController {
-
-    @Autowired
-    private UserRepo userRepo;
 
     @Autowired
     private UserService userService;
@@ -52,7 +51,7 @@ public class UserController {
     @GetMapping("/user/list")
     public ResponseEntity getAllUsers(){
         try {
-            return ResponseEntity.ok().body(userRepo.findAll());
+            return ResponseEntity.ok().body(userService.getAllUsersList());
         } catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -61,21 +60,20 @@ public class UserController {
     @GetMapping("/user/{id}")
     public ResponseEntity getOneUserById(@PathVariable Long id){
         try {
-//            UserEntity user = userService.getUser(id);
-            return ResponseEntity.ok().body(userRepo.findById(id));
+            return ResponseEntity.ok().body(userService.getUser(id));
         } catch (Exception e){
             return ResponseEntity.badRequest().body("User doesn't exist");
         }
     }
 
-    @PostMapping("/user/update")
-    public ResponseEntity updateUser(@RequestBody UserEntity userEntity){
+    @PutMapping("/user/update")
+    public ResponseEntity updateUser(@RequestBody @Valid UserEntity userEntity){
         try {
-            //update
+            userService.updateUser(userEntity);
+            return ResponseEntity.ok().body("Updated user");
         } catch (Exception e){
-
+            return ResponseEntity.badRequest().body("Couldn't update user!");
         }
-        return ResponseEntity.ok().body("123");
     }
 //    @GetMapping("/activation")
 //    public ResponseEntity useActivationCode(){

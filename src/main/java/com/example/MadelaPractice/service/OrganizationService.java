@@ -1,7 +1,7 @@
 package com.example.MadelaPractice.service;
 
 import com.example.MadelaPractice.entity.OrganizationEntity;
-import com.example.MadelaPractice.exception.EntityDoesNowExistException;
+import com.example.MadelaPractice.exception.EntityDoesNotExistException;
 import com.example.MadelaPractice.exception.NoNameException;
 import com.example.MadelaPractice.repository.OrganizationRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +23,9 @@ public class OrganizationService {
                 organizationEntity.getInn(), organizationEntity.getActive());
     }
 
-    public Optional<OrganizationEntity> getOrgById(Long id) throws EntityDoesNowExistException {
+    public Optional<OrganizationEntity> getOrgById(Long id) throws EntityDoesNotExistException {
         if (!organizationRepo.existsById(id)){
-            throw new EntityDoesNowExistException("Entity with this id doesn't exist!");
+            throw new EntityDoesNotExistException("Entity with this id doesn't exist!");
         }
         return organizationRepo.findById(id);
     }
@@ -34,9 +34,9 @@ public class OrganizationService {
         return organizationRepo.save(organizationEntity);
     }
 
-    public OrganizationEntity updateOrganization(OrganizationEntity organizationEntity) throws EntityDoesNowExistException {
+    public OrganizationEntity updateOrganization(OrganizationEntity organizationEntity) throws EntityDoesNotExistException {
         if (!organizationRepo.existsById(organizationEntity.getId())){
-            throw new EntityDoesNowExistException("There is no entity with this id");
+            throw new EntityDoesNotExistException("There is no entity with this id");
         }
         OrganizationEntity organizationInDB = organizationRepo.findById(organizationEntity.getId()).get();
         organizationInDB.setName(organizationEntity.getName());

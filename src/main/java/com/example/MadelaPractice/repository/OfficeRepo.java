@@ -5,7 +5,11 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface OfficeRepo extends CrudRepository<OfficeEntity, Long> {
-    ResponseEntity findAllById(Long orgId);
+//    ResponseEntity findAllById(Long orgId);
+    List<OfficeEntity> findAllByOrgId(Long orgId);
+
 }
