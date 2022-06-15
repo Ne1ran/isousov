@@ -1,14 +1,12 @@
 package com.example.MadelaPractice.service;
 
 import com.example.MadelaPractice.entity.OfficeEntity;
-import com.example.MadelaPractice.exception.EntityAlreadyExistsException;
 import com.example.MadelaPractice.exception.EntityDoesNotExistException;
 import com.example.MadelaPractice.repository.OfficeRepo;
 import com.example.MadelaPractice.repository.OrganizationRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Service

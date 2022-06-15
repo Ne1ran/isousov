@@ -1,7 +1,6 @@
 package com.example.MadelaPractice.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -15,23 +14,14 @@ public class UserEntity {
     private Long officeId;
     private String login;
     private String password;
-    @NotEmpty
     private String firstName;
-    @NotEmpty
     private String lastName;
-    @NotEmpty
     private String middleName;
-    @NotEmpty
     private String phone;
-    @NotNull
     private Long docCode;
-    @NotEmpty
     private String docNumber;
-    @NotNull
     private Date docDate;
-    @NotNull
     private Long citizenshipCode;
-    @NotNull
     private Boolean isIdentified;
 
     public UserEntity() {
