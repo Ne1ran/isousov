@@ -28,7 +28,7 @@ public class OfficeService {
         }
         OfficeEntity officeInDB = officeRepo.findById(officeEntity.getId()).get();
         officeInDB.setActive(true);
-        officeInDB.setOrgId(officeEntity.getOrgId());
+//        officeInDB.setOrgId(officeEntity.getOrgId());
         officeInDB.setName(officeEntity.getName());
         officeInDB.setAddress(officeEntity.getAddress());
         officeInDB.setPhone(officeEntity.getPhone());
@@ -46,6 +46,6 @@ public class OfficeService {
         if (!organizationRepo.existsById(orgId)){
             throw new EntityDoesNotExistException("Organization for office with this orgId doesn't exist!");
         }
-        return officeRepo.findAllByOrgId(orgId);
+        return (List<OfficeEntity>) officeRepo.findAll();
     }
 }

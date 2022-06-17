@@ -1,8 +1,6 @@
 package com.example.MadelaPractice.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -11,7 +9,6 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long officeId;
     private String login;
     private String password;
     private String firstName;
@@ -24,7 +21,19 @@ public class UserEntity {
     private Long citizenshipCode;
     private Boolean isIdentified;
 
+    @ManyToOne
+    @JoinColumn(name = "office_id")
+    private OfficeEntity officeConnected;
+
     public UserEntity() {
+    }
+
+    public OfficeEntity getOfficeConnected() {
+        return officeConnected;
+    }
+
+    public void setOfficeConnected(OfficeEntity officeConnected) {
+        this.officeConnected = officeConnected;
     }
 
     public Long getId() {
@@ -33,14 +42,6 @@ public class UserEntity {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getOfficeId() {
-        return officeId;
-    }
-
-    public void setOfficeId(Long officeId) {
-        this.officeId = officeId;
     }
 
     public String getLogin() {

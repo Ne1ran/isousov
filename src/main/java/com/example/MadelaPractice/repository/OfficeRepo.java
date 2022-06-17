@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface OfficeRepo extends CrudRepository<OfficeEntity, Long> {
 //    ResponseEntity findAllById(Long orgId);
-    List<OfficeEntity> findAllByOrgId(Long orgId);
+//    List<OfficeEntity> findAllByOrgId(Long orgId);
 
 }

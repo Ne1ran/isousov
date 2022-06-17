@@ -3,6 +3,7 @@ package com.example.MadelaPractice.service;
 import com.example.MadelaPractice.entity.UserEntity;
 import com.example.MadelaPractice.exception.EntityAlreadyExistsException;
 import com.example.MadelaPractice.exception.EntityDoesNotExistException;
+import com.example.MadelaPractice.repository.OfficeRepo;
 import com.example.MadelaPractice.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,9 @@ public class UserService {
 
     @Autowired
     private UserRepo userRepo;
+
+    @Autowired
+    private OfficeRepo officeRepo;
 
     public UserEntity registation(UserEntity userEntity) throws EntityAlreadyExistsException {
         if (userRepo.findByLogin(userEntity.getLogin()) != null){
@@ -35,7 +39,7 @@ public class UserService {
        return userRepo.findById(id).get();
     }
 
-    public UserEntity updateUser(UserEntity userEntity) throws EntityDoesNotExistException{
+    public UserEntity updateUser(Long officeId, UserEntity userEntity) throws EntityDoesNotExistException{
         if (!userRepo.existsById(userEntity.getId())){
             throw new EntityDoesNotExistException("User with this id doesn't exist!");
         }
@@ -49,7 +53,7 @@ public class UserService {
         userInDB.setMiddleName(userEntity.getMiddleName());
         userInDB.setFirstName(userEntity.getFirstName());
         userInDB.setIdentified(true);
-        userInDB.setOfficeId(userEntity.getOfficeId());
+        userInDB.setOfficeConnected(officeRepo.findById(officeId).get());
         userInDB.setLogin(userEntity.getLogin());
         userInDB.setPassword(userEntity.getPassword());
         return userRepo.save(userInDB);

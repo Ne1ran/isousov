@@ -68,9 +68,9 @@ public class UserController {
     }
 
     @PutMapping("/user/update")
-    public ResponseEntity updateUser(@RequestBody @Valid UserEntity userEntity){
+    public ResponseEntity updateUser(@RequestParam Long officeId, @RequestBody @Valid UserEntity userEntity){
         try {
-            userService.updateUser(userEntity);
+            userService.updateUser(officeId, userEntity);
             return ResponseEntity.ok().body("Updated user");
         } catch (Exception e){
             return ResponseEntity.badRequest().body("Couldn't update user!");
@@ -78,7 +78,7 @@ public class UserController {
     }
 
     @GetMapping("/activation")
-    public ResponseEntity useActivationCode(@RequestParam("code") String code ){
+    public ResponseEntity useActivationCode(@RequestParam("code") String code){
         try {
             if (codeGenerated == Integer.parseInt(code)){
                 userService.registation(userInQueryToGetRegistarted);

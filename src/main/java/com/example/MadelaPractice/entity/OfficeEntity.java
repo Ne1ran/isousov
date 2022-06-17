@@ -3,6 +3,7 @@ package com.example.MadelaPractice.entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Table(name = "office_entity")
@@ -10,7 +11,6 @@ public class OfficeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long orgId;
     @NotEmpty
     private String name;
     @NotEmpty
@@ -19,6 +19,9 @@ public class OfficeEntity {
     private String phone;
     @NotNull
     private Boolean isActive;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "officeConnected")
+    private List<UserEntity> users;
 
     public OfficeEntity() {
     }
@@ -29,14 +32,6 @@ public class OfficeEntity {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getOrgId() {
-        return orgId;
-    }
-
-    public void setOrgId(Long orgId) {
-        this.orgId = orgId;
     }
 
     public String getName() {
