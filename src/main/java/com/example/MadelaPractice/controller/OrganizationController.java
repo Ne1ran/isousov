@@ -1,6 +1,8 @@
 package com.example.MadelaPractice.controller;
 
 import com.example.MadelaPractice.entity.OrganizationEntity;
+import com.example.MadelaPractice.model.OrganizationListIn;
+import com.example.MadelaPractice.model.OrganizationListOut;
 import com.example.MadelaPractice.repository.OrganizationRepo;
 import com.example.MadelaPractice.repository.UserRepo;
 import com.example.MadelaPractice.service.OrganizationService;
@@ -9,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/organization")
@@ -16,10 +19,11 @@ public class OrganizationController {
 
     @Autowired OrganizationService organizationService;
 
-    @GetMapping("/list")
-    public ResponseEntity getOrganizationsList(@RequestBody OrganizationEntity organizationEntity){
+    @PostMapping("/list")
+    public ResponseEntity getOrganizationsList(@RequestBody OrganizationListIn organizationListIn){
         try {
-            return ResponseEntity.ok().body(organizationService.getOrganizationsListByName(organizationEntity));
+            return ResponseEntity.ok().body(organizationService.getOrganizationsListByName(organizationListIn).stream().
+                    map(OrganizationListOut::toModel).collect(Collectors.toList()));
         } catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }

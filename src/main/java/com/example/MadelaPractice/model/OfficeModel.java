@@ -1,37 +1,20 @@
-package com.example.MadelaPractice.entity;
+package com.example.MadelaPractice.model;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import java.util.List;
+import com.example.MadelaPractice.entity.OfficeEntity;
 
-@Entity
-@Table(name = "office_entity")
-public class OfficeEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @NotEmpty
+public class OfficeModel {
     private String name;
-    @NotEmpty
     private String address;
-    @NotEmpty
     private String phone;
-    @NotNull
     private Boolean isActive;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "office_id")
-    private List<UserEntity> users;
-
-    public OfficeEntity() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public static OfficeModel toModel(OfficeEntity office){
+        OfficeModel model = new OfficeModel();
+        model.setPhone(office.getPhone());
+        model.setName(office.getName());
+        model.setActive(office.getActive());
+        model.setAddress(office.getAddress());
+        return model;
     }
 
     public String getName() {
@@ -64,5 +47,8 @@ public class OfficeEntity {
 
     public void setActive(Boolean active) {
         isActive = active;
+    }
+
+    public OfficeModel() {
     }
 }

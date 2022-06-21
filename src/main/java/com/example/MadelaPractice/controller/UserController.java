@@ -1,7 +1,8 @@
 package com.example.MadelaPractice.controller;
 
 import com.example.MadelaPractice.entity.UserEntity;
-import com.example.MadelaPractice.exception.EntityAlreadyExistsException;
+import com.example.MadelaPractice.model.UserSaveModel;
+import com.example.MadelaPractice.model.UserUpdateInModel;
 import com.example.MadelaPractice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,9 +30,9 @@ public class UserController {
     }
 
     @PostMapping("/registration")
-    public ResponseEntity registerUser(@RequestBody UserEntity userEntity){
+    public ResponseEntity registerUser(@RequestBody UserSaveModel userSaveModel){
         try {
-            userInQueryToGetRegistarted = userEntity;
+            userInQueryToGetRegistarted = UserSaveModel.fromModel(userSaveModel);
             codeGenerated = generateCode();
             return ResponseEntity.ok().body("Registration ok, your code is: " + codeGenerated);
         } catch (Exception e){
@@ -68,10 +69,10 @@ public class UserController {
     }
 
     @PutMapping("/user/update")
-    public ResponseEntity updateUser(@RequestParam Long officeId, @RequestBody @Valid UserEntity userEntity){
+    public ResponseEntity updateUser(@RequestParam Long officeId, @RequestBody @Valid UserUpdateInModel userUpdateInModel){
         try {
-            userService.updateUser(officeId, userEntity);
-            return ResponseEntity.ok().body("Updated user");
+            userService.updateUser(officeId, userUpdateInModel);
+            return ResponseEntity.ok().body("Result: success");
         } catch (Exception e){
             return ResponseEntity.badRequest().body("Couldn't update user!");
         }
@@ -88,6 +89,16 @@ public class UserController {
             } else return ResponseEntity.badRequest().body("Code is wrong!");
         } catch (Exception e){
             return ResponseEntity.badRequest().body("Error using code");
+        }
+    }
+
+    @PostMapping("/user/save")
+    public ResponseEntity saveUser(@RequestBody UserSaveModel userSaveModel){
+        try {
+            userService.saveNewUser(userSaveModel);
+            return ResponseEntity.ok().body("Result: success");
+        } catch (Exception e){
+            return ResponseEntity.badRequest().body("Couldn't save new user");
         }
     }
 

@@ -1,41 +1,58 @@
-package com.example.MadelaPractice.entity;
+package com.example.MadelaPractice.model;
 
-import javax.persistence.*;
+import com.example.MadelaPractice.entity.UserEntity;
+
 import java.util.Date;
 
-@Entity
-@Table(name = "user_entity")
-public class UserEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class UserGetByIdModel {
     private Long id;
     private String login;
     private String password;
     private String firstName;
     private String lastName;
     private String middleName;
-    private String position;
     private String phone;
     private Long docCode;
     private String docNumber;
     private Date docDate;
-    private String citizenshipName;
     private Long citizenshipCode;
     private Boolean isIdentified;
+    private String position;
+    private String citizenshipName;
 
-    @ManyToOne
-    @JoinColumn(name = "office_id")
-    private OfficeEntity office_id;
-
-    public UserEntity() {
+    public static UserGetByIdModel toModel(UserEntity entity){
+        UserGetByIdModel model = new UserGetByIdModel();
+        model.setCitizenshipCode(entity.getCitizenshipCode());
+        model.setDocCode(entity.getDocCode());
+        model.setDocDate(entity.getDocDate());
+        model.setDocNumber(entity.getDocNumber());
+        model.setId(entity.getId());
+        model.setFirstName(entity.getFirstName());
+        model.setLastName(entity.getLastName());
+        model.setIdentified(entity.getIdentified());
+        model.setCitizenshipName(entity.getCitizenshipName());
+        model.setCitizenshipCode(entity.getCitizenshipCode());
+        model.setMiddleName(entity.getMiddleName());
+        model.setPhone(entity.getPhone());
+        model.setLogin(entity.getLogin());
+        model.setPassword(entity.getPassword());
+        return model;
     }
 
-    public OfficeEntity getOffice_id() {
-        return office_id;
+    public String getLogin() {
+        return login;
     }
 
-    public void setOffice_id(OfficeEntity office_id) {
-        this.office_id = office_id;
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getPosition() {
@@ -60,22 +77,6 @@ public class UserEntity {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getFirstName() {
@@ -148,5 +149,8 @@ public class UserEntity {
 
     public void setIdentified(Boolean identified) {
         isIdentified = identified;
+    }
+
+    public UserGetByIdModel() {
     }
 }

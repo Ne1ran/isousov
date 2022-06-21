@@ -3,8 +3,10 @@ package com.example.MadelaPractice.service;
 import com.example.MadelaPractice.entity.OrganizationEntity;
 import com.example.MadelaPractice.exception.EntityDoesNotExistException;
 import com.example.MadelaPractice.exception.NoNameException;
+import com.example.MadelaPractice.model.OrganizationListIn;
 import com.example.MadelaPractice.model.OrganizationListOut;
 import com.example.MadelaPractice.repository.OrganizationRepo;
+import com.example.MadelaPractice.specification.OrganizationFilterSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,11 +20,14 @@ public class OrganizationService {
     @Autowired
     private OrganizationRepo organizationRepo;
 
-    public List<OrganizationListOut> getOrganizationsListByName(OrganizationEntity organizationEntity) throws NoNameException {
-        if (organizationEntity.getName() == null){
+    @Autowired
+    private OrganizationFilterSpecification organizationFilterSpecification;
+
+    public List<OrganizationEntity> getOrganizationsListByName(OrganizationListIn organizationListIn) throws NoNameException {
+        if (organizationListIn.getName() == null){
             throw new NoNameException("There is no name to start searching!"); }
-        return organizationRepo.findByNameAndInnAndIsActive(organizationEntity.getName(),
-                organizationEntity.getInn(), organizationEntity.getActive()).stream().map(OrganizationListOut::toModel).collect(Collectors.toList());
+        return organizationFilterSpecification.findOrganizationFilter(organizationListIn.getName(), organizationListIn.getInn(),
+                organizationListIn.getActive());
     }
 
     public OrganizationEntity getOrgById(Long id) throws EntityDoesNotExistException {

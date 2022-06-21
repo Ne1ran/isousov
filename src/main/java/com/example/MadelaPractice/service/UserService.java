@@ -3,6 +3,9 @@ package com.example.MadelaPractice.service;
 import com.example.MadelaPractice.entity.UserEntity;
 import com.example.MadelaPractice.exception.EntityAlreadyExistsException;
 import com.example.MadelaPractice.exception.EntityDoesNotExistException;
+import com.example.MadelaPractice.model.UserGetByIdModel;
+import com.example.MadelaPractice.model.UserSaveModel;
+import com.example.MadelaPractice.model.UserUpdateInModel;
 import com.example.MadelaPractice.repository.OfficeRepo;
 import com.example.MadelaPractice.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,34 +35,40 @@ public class UserService {
         return user;
     }
 
-   public UserEntity getUser(Long id) throws EntityDoesNotExistException {
+   public UserGetByIdModel getUser(Long id) throws EntityDoesNotExistException {
         if (!userRepo.existsById(id)){
             throw new EntityDoesNotExistException("User doesn't exist!");
        }
-       return userRepo.findById(id).get();
+       return UserGetByIdModel.toModel(userRepo.findById(id).get());
     }
 
-    public UserEntity updateUser(Long officeId, UserEntity userEntity) throws EntityDoesNotExistException{
-        if (!userRepo.existsById(userEntity.getId())){
+    public UserEntity updateUser(Long officeId, UserUpdateInModel userUpdateInModel) throws EntityDoesNotExistException{
+        if (!userRepo.existsById(userUpdateInModel.getId())){
             throw new EntityDoesNotExistException("User with this id doesn't exist!");
         }
-        UserEntity userInDB = userRepo.findById(userEntity.getId()).get();
-        userInDB.setCitizenshipCode(userEntity.getCitizenshipCode());
-        userInDB.setDocCode(userEntity.getDocCode());
-        userInDB.setDocDate(userEntity.getDocDate());
-        userInDB.setDocNumber(userEntity.getDocNumber());
-        userInDB.setPhone(userEntity.getPhone());
-        userInDB.setLastName(userEntity.getLastName());
-        userInDB.setMiddleName(userEntity.getMiddleName());
-        userInDB.setFirstName(userEntity.getFirstName());
+        UserEntity userInDB = userRepo.findById(userUpdateInModel.getId()).get();
+        userInDB.setCitizenshipCode(userUpdateInModel.getCitizenshipCode());
+        userInDB.setDocCode(userUpdateInModel.getDocCode());
+        userInDB.setDocDate(userUpdateInModel.getDocDate());
+        userInDB.setDocNumber(userUpdateInModel.getDocNumber());
+        userInDB.setPhone(userUpdateInModel.getPhone());
+        userInDB.setLastName(userUpdateInModel.getLastName());
+        userInDB.setMiddleName(userUpdateInModel.getMiddleName());
+        userInDB.setFirstName(userUpdateInModel.getFirstName());
         userInDB.setIdentified(true);
-        userInDB.setOfficeConnected(officeRepo.findById(officeId).get());
-        userInDB.setLogin(userEntity.getLogin());
-        userInDB.setPassword(userEntity.getPassword());
+        userInDB.setOffice_id(officeRepo.findById(officeId).get());
+        userInDB.setCitizenshipName(userUpdateInModel.getCitizenshipName());
+        userInDB.setPosition(userUpdateInModel.getPosition());
+        userInDB.setLogin(userUpdateInModel.getLogin());
+        userInDB.setPassword(userUpdateInModel.getPassword());
         return userRepo.save(userInDB);
     }
 
     public Iterable<UserEntity> getAllUsersList() {
         return userRepo.findAll();
+    }
+
+    public UserEntity saveNewUser(UserSaveModel userSaveModel) {
+        return userRepo.save(UserSaveModel.fromModel(userSaveModel));
     }
 }

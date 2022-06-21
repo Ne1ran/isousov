@@ -1,65 +1,40 @@
-package com.example.MadelaPractice.entity;
+package com.example.MadelaPractice.model;
 
-import javax.persistence.*;
+import com.example.MadelaPractice.entity.UserEntity;
+
 import java.util.Date;
 
-@Entity
-@Table(name = "user_entity")
-public class UserEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class UserSaveModel {
     private String login;
     private String password;
     private String firstName;
     private String lastName;
     private String middleName;
-    private String position;
     private String phone;
     private Long docCode;
     private String docNumber;
     private Date docDate;
-    private String citizenshipName;
     private Long citizenshipCode;
     private Boolean isIdentified;
+    private String position;
+    private String citizenshipName;
 
-    @ManyToOne
-    @JoinColumn(name = "office_id")
-    private OfficeEntity office_id;
-
-    public UserEntity() {
-    }
-
-    public OfficeEntity getOffice_id() {
-        return office_id;
-    }
-
-    public void setOffice_id(OfficeEntity office_id) {
-        this.office_id = office_id;
-    }
-
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
-    public String getCitizenshipName() {
-        return citizenshipName;
-    }
-
-    public void setCitizenshipName(String citizenshipName) {
-        this.citizenshipName = citizenshipName;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public static UserEntity fromModel(UserSaveModel model){
+        UserEntity entity = new UserEntity();
+        entity.setCitizenshipCode(model.getCitizenshipCode());
+        entity.setDocCode(model.getDocCode());
+        entity.setDocDate(model.getDocDate());
+        entity.setDocNumber(model.getDocNumber());
+        entity.setFirstName(model.getFirstName());
+        entity.setLastName(model.getLastName());
+        entity.setIdentified(model.getIdentified());
+        entity.setCitizenshipName(model.getCitizenshipName());
+        entity.setCitizenshipCode(model.getCitizenshipCode());
+        entity.setMiddleName(model.getMiddleName());
+        entity.setPhone(model.getPhone());
+        entity.setPassword(model.getPassword());
+        entity.setLogin(model.getLogin());
+        return entity;
     }
 
     public String getLogin() {
@@ -76,6 +51,22 @@ public class UserEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public String getCitizenshipName() {
+        return citizenshipName;
+    }
+
+    public void setCitizenshipName(String citizenshipName) {
+        this.citizenshipName = citizenshipName;
     }
 
     public String getFirstName() {
@@ -148,5 +139,8 @@ public class UserEntity {
 
     public void setIdentified(Boolean identified) {
         isIdentified = identified;
+    }
+
+    public UserSaveModel() {
     }
 }
