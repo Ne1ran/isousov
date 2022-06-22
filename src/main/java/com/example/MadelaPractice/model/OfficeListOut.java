@@ -7,12 +7,12 @@ public class OfficeListOut {
     private String name;
     private Boolean isActive;
 
-    public static OfficeEntity fromModel(OfficeListOut officeListOut){
-        OfficeEntity entity = new OfficeEntity();
-        entity.setId(officeListOut.getId());
-        entity.setName(officeListOut.getName());
-        entity.setActive(officeListOut.getActive());
-        return entity;
+    public static OfficeListOut toModel(OfficeEntity entity){
+        OfficeListOut model = new OfficeListOut();
+        model.setId(entity.getId());
+        model.setName(entity.getName());
+        model.setActive(entity.getActive());
+        return model;
     }
 
     public OfficeListOut() {

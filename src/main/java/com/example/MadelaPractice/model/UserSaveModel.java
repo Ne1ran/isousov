@@ -36,15 +36,9 @@ public class UserSaveModel {
 
     public static UserEntity fromModel(UserSaveModel model){
         UserEntity entity = new UserEntity();
-        entity.setCitizenshipCode(model.getCitizenshipCode());
-        entity.setDocCode(model.getDocCode());
-        entity.setDocDate(model.getDocDate());
-        entity.setDocNumber(model.getDocNumber());
         entity.setFirstName(model.getFirstName());
         entity.setLastName(model.getLastName());
         entity.setIdentified(model.getIdentified());
-        entity.setCitizenshipName(model.getCitizenshipName());
-        entity.setCitizenshipCode(model.getCitizenshipCode());
         entity.setMiddleName(model.getMiddleName());
         entity.setPhone(model.getPhone());
         entity.setPassword(model.getPassword());

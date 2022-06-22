@@ -16,18 +16,46 @@ public class UserEntity {
     private String middleName;
     private String position;
     private String phone;
-    private Long docCode;
-    private String docNumber;
-    private Date docDate;
-    private String citizenshipName;
-    private Long citizenshipCode;
     private Boolean isIdentified;
+    private Date docDate;
 
     @ManyToOne
     @JoinColumn(name = "office_id")
     private OfficeEntity office_id;
 
+    @ManyToOne
+    @JoinColumn(name = "document_id")
+    private DocsEntity document_id;
+
+    @ManyToOne
+    @JoinColumn(name = "country_id")
+    private CountryEntity country_id;
+
     public UserEntity() {
+    }
+
+    public Date getDocDate() {
+        return docDate;
+    }
+
+    public void setDocDate(Date docDate) {
+        this.docDate = docDate;
+    }
+
+    public DocsEntity getDocument_id() {
+        return document_id;
+    }
+
+    public void setDocument_id(DocsEntity document_id) {
+        this.document_id = document_id;
+    }
+
+    public CountryEntity getCountry_id() {
+        return country_id;
+    }
+
+    public void setCountry_id(CountryEntity country_id) {
+        this.country_id = country_id;
     }
 
     public OfficeEntity getOffice_id() {
@@ -44,14 +72,6 @@ public class UserEntity {
 
     public void setPosition(String position) {
         this.position = position;
-    }
-
-    public String getCitizenshipName() {
-        return citizenshipName;
-    }
-
-    public void setCitizenshipName(String citizenshipName) {
-        this.citizenshipName = citizenshipName;
     }
 
     public Long getId() {
@@ -108,38 +128,6 @@ public class UserEntity {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public Long getDocCode() {
-        return docCode;
-    }
-
-    public void setDocCode(Long docCode) {
-        this.docCode = docCode;
-    }
-
-    public String getDocNumber() {
-        return docNumber;
-    }
-
-    public void setDocNumber(String docNumber) {
-        this.docNumber = docNumber;
-    }
-
-    public Date getDocDate() {
-        return docDate;
-    }
-
-    public void setDocDate(Date docDate) {
-        this.docDate = docDate;
-    }
-
-    public Long getCitizenshipCode() {
-        return citizenshipCode;
-    }
-
-    public void setCitizenshipCode(Long citizenshipCode) {
-        this.citizenshipCode = citizenshipCode;
     }
 
     public Boolean getIdentified() {

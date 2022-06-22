@@ -22,16 +22,10 @@ public class UserGetByIdModel {
 
     public static UserGetByIdModel toModel(UserEntity entity){
         UserGetByIdModel model = new UserGetByIdModel();
-        model.setCitizenshipCode(entity.getCitizenshipCode());
-        model.setDocCode(entity.getDocCode());
-        model.setDocDate(entity.getDocDate());
-        model.setDocNumber(entity.getDocNumber());
         model.setId(entity.getId());
         model.setFirstName(entity.getFirstName());
         model.setLastName(entity.getLastName());
         model.setIdentified(entity.getIdentified());
-        model.setCitizenshipName(entity.getCitizenshipName());
-        model.setCitizenshipCode(entity.getCitizenshipCode());
         model.setMiddleName(entity.getMiddleName());
         model.setPhone(entity.getPhone());
         model.setLogin(entity.getLogin());

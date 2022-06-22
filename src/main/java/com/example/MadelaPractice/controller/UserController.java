@@ -1,6 +1,7 @@
 package com.example.MadelaPractice.controller;
 
 import com.example.MadelaPractice.entity.UserEntity;
+import com.example.MadelaPractice.exception.EntityDoesNotExistException;
 import com.example.MadelaPractice.model.UserSaveModel;
 import com.example.MadelaPractice.model.UserUpdateInModel;
 import com.example.MadelaPractice.service.UserService;
@@ -73,6 +74,8 @@ public class UserController {
         try {
             userService.updateUser(officeId, userUpdateInModel);
             return ResponseEntity.ok().body("Result: success");
+        } catch (EntityDoesNotExistException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e){
             return ResponseEntity.badRequest().body("Couldn't update user!");
         }

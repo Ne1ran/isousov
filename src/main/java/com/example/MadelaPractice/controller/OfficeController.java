@@ -1,6 +1,8 @@
 package com.example.MadelaPractice.controller;
 
 import com.example.MadelaPractice.entity.OfficeEntity;
+import com.example.MadelaPractice.model.OfficeListIn;
+import com.example.MadelaPractice.model.OfficeListOut;
 import com.example.MadelaPractice.model.OfficeSaveModel;
 import com.example.MadelaPractice.model.OfficeUpdateModel;
 import com.example.MadelaPractice.repository.OfficeRepo;
@@ -9,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/api/office")
 public class OfficeController {
@@ -16,12 +20,12 @@ public class OfficeController {
     @Autowired
     private OfficeService officeService;
 
-    @PostMapping("/list/{orgId}")
-    public ResponseEntity getOfficeListByOrgId(@PathVariable Long orgId, @RequestBody OfficeEntity officeEntity){
+    @PostMapping("/list")
+    public ResponseEntity getOfficeListByOrgId(@RequestBody OfficeListIn model){
         try {
-            return ResponseEntity.ok().body(officeService.getOfficeList(orgId, officeEntity));
+            return ResponseEntity.ok().body(officeService.getOfficeList(model).stream().map(OfficeListOut::toModel).collect(Collectors.toList()));
         } catch (Exception e){
-            return ResponseEntity.badRequest().body("Error finding list of offices");
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
