@@ -3,8 +3,7 @@ package com.example.MadelaPractice.service;
 import com.example.MadelaPractice.entity.OrganizationEntity;
 import com.example.MadelaPractice.exception.EntityDoesNotExistException;
 import com.example.MadelaPractice.exception.NoNameException;
-import com.example.MadelaPractice.model.OrganizationListIn;
-import com.example.MadelaPractice.model.OrganizationListOut;
+import com.example.MadelaPractice.model.*;
 import com.example.MadelaPractice.repository.OrganizationRepo;
 import com.example.MadelaPractice.specification.OrganizationFilterSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,29 +29,29 @@ public class OrganizationService {
                 organizationListIn.getActive());
     }
 
-    public OrganizationEntity getOrgById(Long id) throws EntityDoesNotExistException {
+    public OrganizationGetByIdModel getOrgById(Long id) throws EntityDoesNotExistException {
         if (!organizationRepo.existsById(id)){
             throw new EntityDoesNotExistException("Entity with this id doesn't exist!");
         }
-        return organizationRepo.findById(id).get();
+        return OrganizationGetByIdModel.toModel(organizationRepo.findById(id).get());
     }
 
-    public OrganizationEntity saveOrganization(OrganizationEntity organizationEntity) {
-        return organizationRepo.save(organizationEntity);
+    public OrganizationEntity saveOrganization(OrganizationSaveModel model) {
+        return organizationRepo.save(OrganizationSaveModel.fromModel(model));
     }
 
-    public OrganizationEntity updateOrganization(OrganizationEntity organizationEntity) throws EntityDoesNotExistException {
-        if (!organizationRepo.existsById(organizationEntity.getId())){
+    public OrganizationEntity updateOrganization(OrganizationUpdateModel model) throws EntityDoesNotExistException {
+        if (!organizationRepo.existsById(model.getId())){
             throw new EntityDoesNotExistException("There is no entity with this id");
         }
-        OrganizationEntity organizationInDB = organizationRepo.findById(organizationEntity.getId()).get();
-        organizationInDB.setName(organizationEntity.getName());
-        organizationInDB.setFullName(organizationEntity.getFullName());
+        OrganizationEntity organizationInDB = organizationRepo.findById(model.getId()).get();
+        organizationInDB.setName(model.getName());
+        organizationInDB.setFullName(model.getFullName());
         organizationInDB.setActive(true);
-        organizationInDB.setAddress(organizationEntity.getAddress());
-        organizationInDB.setPhone(organizationEntity.getPhone());
-        organizationInDB.setKpp(organizationEntity.getKpp());
-        organizationInDB.setInn(organizationEntity.getInn());
+        organizationInDB.setAddress(model.getAddress());
+        organizationInDB.setPhone(model.getPhone());
+        organizationInDB.setKpp(model.getKpp());
+        organizationInDB.setInn(model.getInn());
         return organizationRepo.save(organizationInDB);
     }
 }

@@ -32,9 +32,9 @@ public class OrganizationFilterSpecification {
                 if (null != inn){
                     predicates.add(criteriaBuilder.like(root.get("inn"), "%"+inn+"%"));
                 }
-//                if (null != isActive){
-//                    predicates.add(criteriaBuilder.like(root.get("name"), "%"+name+"%"));
-//                }
+                if (null != isActive){
+                    predicates.add(criteriaBuilder.like(root.get("isActive"), "%"+isActive+"%"));
+              }
                 return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
             }
         };

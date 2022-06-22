@@ -3,6 +3,8 @@ package com.example.MadelaPractice.controller;
 import com.example.MadelaPractice.entity.OrganizationEntity;
 import com.example.MadelaPractice.model.OrganizationListIn;
 import com.example.MadelaPractice.model.OrganizationListOut;
+import com.example.MadelaPractice.model.OrganizationSaveModel;
+import com.example.MadelaPractice.model.OrganizationUpdateModel;
 import com.example.MadelaPractice.repository.OrganizationRepo;
 import com.example.MadelaPractice.repository.UserRepo;
 import com.example.MadelaPractice.service.OrganizationService;
@@ -39,9 +41,9 @@ public class OrganizationController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity updateOrganization(@RequestBody @Valid OrganizationEntity organizationEntity){
+    public ResponseEntity updateOrganization(@RequestBody @Valid OrganizationUpdateModel model){
         try {
-            organizationService.updateOrganization(organizationEntity);
+            organizationService.updateOrganization(model);
             return ResponseEntity.ok().body("Updated org!");
         } catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -49,9 +51,9 @@ public class OrganizationController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity saveNewOrganization(@RequestBody @Valid OrganizationEntity organizationEntity){
+    public ResponseEntity saveNewOrganization(@RequestBody @Valid OrganizationSaveModel model){
         try {
-            organizationService.saveOrganization(organizationEntity);
+            organizationService.saveOrganization(model);
             return ResponseEntity.ok().body("Saved org!");
         } catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());

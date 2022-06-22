@@ -2,22 +2,38 @@ package com.example.MadelaPractice.model;
 
 import com.example.MadelaPractice.entity.UserEntity;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class UserUpdateInModel {
+    @NotNull
     private Long id;
+    @NotEmpty
     private String login;
+    @NotEmpty
     private String password;
+    @NotEmpty
     private String firstName;
+    @NotEmpty
     private String lastName;
+    @NotEmpty
     private String middleName;
+    @NotEmpty
     private String phone;
+    @NotNull
     private Long docCode;
+    @NotEmpty
     private String docNumber;
+    @NotNull
     private Date docDate;
+    @NotNull
     private Long citizenshipCode;
+    @NotNull
     private Boolean isIdentified;
+    @NotEmpty
     private String position;
+    @NotEmpty
     private String citizenshipName;
 
     public static UserGetByIdModel toModel(UserEntity entity){

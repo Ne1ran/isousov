@@ -1,42 +1,41 @@
-package com.example.MadelaPractice.entity;
+package com.example.MadelaPractice.model;
 
-import javax.persistence.*;
-import java.util.List;
+import com.example.MadelaPractice.entity.OrganizationEntity;
 
-@Entity
-@Table(name = "organization_entity")
-public class OrganizationEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+import javax.validation.constraints.NotEmpty;
+
+public class OrganizationUpdateModel {
+    @NotEmpty
     private Long id;
+    @NotEmpty
     private String name;
+    @NotEmpty
     private String fullName;
+    @NotEmpty
     private String inn;
+    @NotEmpty
     private String kpp;
+    @NotEmpty
     private String address;
+    @NotEmpty
     private String phone;
+    @NotEmpty
     private Boolean isActive;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orgId")
-    private List<OfficeEntity> offices;
-
-    public OrganizationEntity() {
+    public static OrganizationEntity fromModel(OrganizationUpdateModel model){
+        OrganizationEntity entity = new OrganizationEntity();
+        entity.setId(model.getId());
+        entity.setActive(model.getActive());
+        entity.setName(model.getName());
+        entity.setInn(model.getInn());
+        entity.setName(model.getName());
+        entity.setPhone(model.getPhone());
+        entity.setKpp(model.getKpp());
+        entity.setAddress(model.getAddress());
+        return entity;
     }
 
-    public List<OfficeEntity> getOffices() {
-        return offices;
-    }
-
-    public void setOffices(List<OfficeEntity> offices) {
-        this.offices = offices;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public OrganizationUpdateModel() {
     }
 
     public Long getId() {
@@ -53,6 +52,14 @@ public class OrganizationEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getInn() {

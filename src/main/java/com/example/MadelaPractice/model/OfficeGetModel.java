@@ -2,19 +2,29 @@ package com.example.MadelaPractice.model;
 
 import com.example.MadelaPractice.entity.OfficeEntity;
 
-public class OfficeModel {
+public class OfficeGetModel {
+    private Long id;
     private String name;
     private String address;
     private String phone;
     private Boolean isActive;
 
-    public static OfficeModel toModel(OfficeEntity office){
-        OfficeModel model = new OfficeModel();
+    public static OfficeGetModel toModel(OfficeEntity office){
+        OfficeGetModel model = new OfficeGetModel();
+        model.setId(office.getId());
         model.setPhone(office.getPhone());
         model.setName(office.getName());
         model.setActive(office.getActive());
         model.setAddress(office.getAddress());
         return model;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -49,6 +59,6 @@ public class OfficeModel {
         isActive = active;
     }
 
-    public OfficeModel() {
+    public OfficeGetModel() {
     }
 }

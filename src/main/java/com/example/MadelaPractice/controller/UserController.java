@@ -40,17 +40,17 @@ public class UserController {
         }
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity login(@RequestParam String login, @RequestParam String password){
         try {
             UserEntity user = userService.login(login, password);
-            return ResponseEntity.ok().body(user.getFirstName());
+            return ResponseEntity.ok().body("Result: success");
         } catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
-    @GetMapping("/user/list")
+    @PostMapping("/user/list")
     public ResponseEntity getAllUsers(){
         try {
             return ResponseEntity.ok().body(userService.getAllUsersList());
@@ -93,7 +93,7 @@ public class UserController {
     }
 
     @PostMapping("/user/save")
-    public ResponseEntity saveUser(@RequestBody UserSaveModel userSaveModel){
+    public ResponseEntity saveUser(@RequestBody @Valid UserSaveModel userSaveModel){
         try {
             userService.saveNewUser(userSaveModel);
             return ResponseEntity.ok().body("Result: success");

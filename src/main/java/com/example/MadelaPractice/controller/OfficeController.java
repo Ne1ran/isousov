@@ -1,6 +1,8 @@
 package com.example.MadelaPractice.controller;
 
 import com.example.MadelaPractice.entity.OfficeEntity;
+import com.example.MadelaPractice.model.OfficeSaveModel;
+import com.example.MadelaPractice.model.OfficeUpdateModel;
 import com.example.MadelaPractice.repository.OfficeRepo;
 import com.example.MadelaPractice.service.OfficeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,7 @@ public class OfficeController {
     @Autowired
     private OfficeService officeService;
 
-    @GetMapping("/list/{orgId}")
+    @PostMapping("/list/{orgId}")
     public ResponseEntity getOfficeListByOrgId(@PathVariable Long orgId, @RequestBody OfficeEntity officeEntity){
         try {
             return ResponseEntity.ok().body(officeService.getOfficeList(orgId, officeEntity));
@@ -33,9 +35,9 @@ public class OfficeController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity updateOffice(@RequestBody OfficeEntity officeEntity){
+    public ResponseEntity updateOffice(@RequestBody OfficeUpdateModel model){
         try {
-            officeService.updateOffice(officeEntity);
+            officeService.updateOffice(model);
             return ResponseEntity.ok().body("Office updated!");
         } catch (Exception e){
             return ResponseEntity.badRequest().body("Error updating office");
@@ -43,9 +45,9 @@ public class OfficeController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity saveOffice(@RequestBody OfficeEntity officeEntity){
+    public ResponseEntity saveOffice(@RequestBody OfficeSaveModel model){
         try {
-            officeService.saveNewOffice(officeEntity);
+            officeService.saveNewOffice(model);
             return ResponseEntity.ok().body("Saved office!");
         } catch (Exception e){
             return ResponseEntity.badRequest().body("Error saving office");
