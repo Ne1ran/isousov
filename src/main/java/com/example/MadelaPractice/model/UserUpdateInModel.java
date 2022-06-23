@@ -33,8 +33,8 @@ public class UserUpdateInModel {
     private Boolean isIdentified;
     @NotEmpty
     private String position;
-    @NotEmpty
-    private String citizenshipName;
+    @NotNull
+    private Long officeId;
 
     public static UserGetByIdModel toModel(UserEntity entity){
         UserGetByIdModel model = new UserGetByIdModel();
@@ -47,6 +47,14 @@ public class UserUpdateInModel {
         model.setPassword(entity.getPassword());
         model.setLogin(entity.getLogin());
         return model;
+    }
+
+    public Long getOfficeId() {
+        return officeId;
+    }
+
+    public void setOfficeId(Long officeId) {
+        this.officeId = officeId;
     }
 
     public String getLogin() {
@@ -71,14 +79,6 @@ public class UserUpdateInModel {
 
     public void setPosition(String position) {
         this.position = position;
-    }
-
-    public String getCitizenshipName() {
-        return citizenshipName;
-    }
-
-    public void setCitizenshipName(String citizenshipName) {
-        this.citizenshipName = citizenshipName;
     }
 
     public Long getId() {

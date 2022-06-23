@@ -31,8 +31,8 @@ public class UserSaveModel {
     private Boolean isIdentified;
     @NotEmpty
     private String position;
-    @NotEmpty
-    private String citizenshipName;
+    @NotNull
+    private Long office_id;
 
     public static UserEntity fromModel(UserSaveModel model){
         UserEntity entity = new UserEntity();
@@ -43,7 +43,18 @@ public class UserSaveModel {
         entity.setPhone(model.getPhone());
         entity.setPassword(model.getPassword());
         entity.setLogin(model.getLogin());
+        entity.setDocNumber(model.getDocNumber());
+        entity.setDocDate(model.getDocDate());
+        entity.setPosition(model.getPosition());
         return entity;
+    }
+
+    public Long getOffice_id() {
+        return office_id;
+    }
+
+    public void setOffice_id(Long office_id) {
+        this.office_id = office_id;
     }
 
     public String getLogin() {
@@ -68,14 +79,6 @@ public class UserSaveModel {
 
     public void setPosition(String position) {
         this.position = position;
-    }
-
-    public String getCitizenshipName() {
-        return citizenshipName;
-    }
-
-    public void setCitizenshipName(String citizenshipName) {
-        this.citizenshipName = citizenshipName;
     }
 
     public String getFirstName() {

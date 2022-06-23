@@ -22,7 +22,7 @@ public class OrganizationController {
     @Autowired OrganizationService organizationService;
 
     @PostMapping("/list")
-    public ResponseEntity getOrganizationsList(@RequestBody OrganizationListIn organizationListIn){
+    public ResponseEntity getOrganizationsList(@RequestBody @Valid OrganizationListIn organizationListIn){
         try {
             return ResponseEntity.ok().body(organizationService.getOrganizationsListByName(organizationListIn).stream().
                     map(OrganizationListOut::toModel).collect(Collectors.toList()));

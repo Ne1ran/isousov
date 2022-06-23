@@ -2,15 +2,16 @@ package com.example.MadelaPractice.controller;
 
 import com.example.MadelaPractice.entity.UserEntity;
 import com.example.MadelaPractice.exception.EntityDoesNotExistException;
-import com.example.MadelaPractice.model.UserSaveModel;
-import com.example.MadelaPractice.model.UserUpdateInModel;
+import com.example.MadelaPractice.model.*;
 import com.example.MadelaPractice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.ValidationException;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -31,9 +32,9 @@ public class UserController {
     }
 
     @PostMapping("/registration")
-    public ResponseEntity registerUser(@RequestBody UserSaveModel userSaveModel){
+    public ResponseEntity registerUser(@RequestBody @Valid UserRegistationModel userRegistationModel){
         try {
-            userInQueryToGetRegistarted = UserSaveModel.fromModel(userSaveModel);
+            userInQueryToGetRegistarted = UserRegistationModel.fromModel(userRegistationModel);
             codeGenerated = generateCode();
             return ResponseEntity.ok().body("Registration ok, your code is: " + codeGenerated);
         } catch (Exception e){
@@ -52,9 +53,11 @@ public class UserController {
     }
 
     @PostMapping("/user/list")
-    public ResponseEntity getAllUsers(){
+    public ResponseEntity getAllUsers(@RequestBody @Valid UserListInModel model){
         try {
-            return ResponseEntity.ok().body(userService.getAllUsersList());
+            return ResponseEntity.ok().body(userService.getAllUsersList(model).stream().map(UserListOut::toModel).collect(Collectors.toList()));
+        } catch (ValidationException e){
+            return ResponseEntity.badRequest().body(e.getMessage() + "Validation failed...");
         } catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -64,15 +67,17 @@ public class UserController {
     public ResponseEntity getOneUserById(@PathVariable Long id){
         try {
             return ResponseEntity.ok().body(userService.getUser(id));
+        } catch (EntityDoesNotExistException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e){
-            return ResponseEntity.badRequest().body("User doesn't exist");
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
     @PutMapping("/user/update")
-    public ResponseEntity updateUser(@RequestParam Long officeId, @RequestBody @Valid UserUpdateInModel userUpdateInModel){
+    public ResponseEntity updateUser(@RequestBody @Valid UserUpdateInModel userUpdateInModel){
         try {
-            userService.updateUser(officeId, userUpdateInModel);
+            userService.updateUser(userUpdateInModel);
             return ResponseEntity.ok().body("Result: success");
         } catch (EntityDoesNotExistException e){
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -100,6 +105,8 @@ public class UserController {
         try {
             userService.saveNewUser(userSaveModel);
             return ResponseEntity.ok().body("Result: success");
+        } catch (EntityDoesNotExistException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e){
             return ResponseEntity.badRequest().body("Couldn't save new user");
         }

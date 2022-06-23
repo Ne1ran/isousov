@@ -9,14 +9,14 @@ public class UserListOut {
     private String lastName;
     private String position;
 
-    public static UserEntity fromModel(UserListOut model){
-        UserEntity entity = new UserEntity();
-        entity.setId(model.getId());
-        entity.setFirstName(model.getFirstName());
-        entity.setMiddleName(model.getMiddleName());
-        entity.setLastName(model.getLastName());
-        entity.setPosition(model.getPosition());
-        return entity;
+    public static UserListOut toModel(UserEntity entity){
+        UserListOut model = new UserListOut();
+        model.setId(entity.getId());
+        model.setFirstName(entity.getFirstName());
+        model.setMiddleName(entity.getMiddleName());
+        model.setLastName(entity.getLastName());
+        model.setPosition(entity.getPosition());
+        return model;
     }
 
     public Long getId() {

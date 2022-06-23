@@ -2,7 +2,10 @@ package com.example.MadelaPractice.model;
 
 import com.example.MadelaPractice.entity.OrganizationEntity;
 
+import javax.validation.constraints.NotEmpty;
+
 public class OrganizationListIn {
+    @NotEmpty(message = "There is no name to start searching!")
     private String name;
     private String inn;
     private Boolean isActive;

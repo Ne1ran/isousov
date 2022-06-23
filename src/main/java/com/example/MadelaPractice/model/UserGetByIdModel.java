@@ -19,6 +19,8 @@ public class UserGetByIdModel {
     private Boolean isIdentified;
     private String position;
     private String citizenshipName;
+    private String docName;
+    private Long officeId;
 
     public static UserGetByIdModel toModel(UserEntity entity){
         UserGetByIdModel model = new UserGetByIdModel();
@@ -31,6 +33,22 @@ public class UserGetByIdModel {
         model.setLogin(entity.getLogin());
         model.setPassword(entity.getPassword());
         return model;
+    }
+
+    public Long getOfficeId() {
+        return officeId;
+    }
+
+    public void setOfficeId(Long officeId) {
+        this.officeId = officeId;
+    }
+
+    public String getDocName() {
+        return docName;
+    }
+
+    public void setDocName(String docName) {
+        this.docName = docName;
     }
 
     public String getLogin() {

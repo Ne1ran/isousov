@@ -18,7 +18,7 @@ public class UserFilterSpecification {
     @Autowired
     private UserRepo userRepo;
 
-    public List<UserEntity> findOrganizationFilter(Long officeId, String firstName, String lastName, String middleName,
+    public List<UserEntity> findUserFilter(Long officeId, String firstName, String lastName, String middleName,
                                                    String position, Long docCode, Long citizenshipCode){
         List<UserEntity> result = null;
 
@@ -27,7 +27,7 @@ public class UserFilterSpecification {
             @Override
             public Predicate toPredicate(Root root, CriteriaQuery query, CriteriaBuilder criteriaBuilder) {
                 if (null != officeId){
-                    predicates.add(criteriaBuilder.equal(root.get("officeId"), officeId));
+                    predicates.add(criteriaBuilder.equal(root.get("office_id").get("id"), officeId));
                 }
                 if (null != firstName){
                     predicates.add(criteriaBuilder.like(root.get("firstName"), "%"+firstName+"%"));
@@ -42,10 +42,10 @@ public class UserFilterSpecification {
                     predicates.add(criteriaBuilder.like(root.get("position"), "%"+position+"%"));
                 }
                 if (null != docCode){
-                    predicates.add(criteriaBuilder.equal(root.get("docCode"), docCode));
+                    predicates.add(criteriaBuilder.equal(root.get("document_id").get("code"), docCode));
                 }
                 if (null != citizenshipCode){
-                    predicates.add(criteriaBuilder.equal(root.get("citizenshipCode"), citizenshipCode));
+                    predicates.add(criteriaBuilder.equal(root.get("country_id").get("code"), citizenshipCode));
                 }
                 return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
             }

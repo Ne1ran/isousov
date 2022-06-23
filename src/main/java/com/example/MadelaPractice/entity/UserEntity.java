@@ -18,6 +18,7 @@ public class UserEntity {
     private String phone;
     private Boolean isIdentified;
     private Date docDate;
+    private String docNumber;
 
     @ManyToOne
     @JoinColumn(name = "office_id")
@@ -32,6 +33,14 @@ public class UserEntity {
     private CountryEntity country_id;
 
     public UserEntity() {
+    }
+
+    public String getDocNumber() {
+        return docNumber;
+    }
+
+    public void setDocNumber(String docNumber) {
+        this.docNumber = docNumber;
     }
 
     public Date getDocDate() {
