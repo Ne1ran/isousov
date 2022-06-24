@@ -44,7 +44,7 @@ public class OrganizationController {
     public ResponseEntity updateOrganization(@RequestBody @Valid OrganizationUpdateModel model){
         try {
             organizationService.updateOrganization(model);
-            return ResponseEntity.ok().body("Updated org!");
+            return ResponseEntity.ok().body("Result: success!");
         } catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -54,7 +54,7 @@ public class OrganizationController {
     public ResponseEntity saveNewOrganization(@RequestBody @Valid OrganizationSaveModel model){
         try {
             organizationService.saveOrganization(model);
-            return ResponseEntity.ok().body("Saved org!");
+            return ResponseEntity.ok().body("Result: success!");
         } catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }

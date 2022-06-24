@@ -2,10 +2,12 @@ package com.example.MadelaPractice.model;
 
 import com.example.MadelaPractice.entity.OfficeEntity;
 import com.example.MadelaPractice.entity.OrganizationEntity;
-import com.example.MadelaPractice.repository.OfficeRepo;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 public class OfficeUpdateModel {
+    @NotNull
     private Long id;
     private String name;
     private String address;

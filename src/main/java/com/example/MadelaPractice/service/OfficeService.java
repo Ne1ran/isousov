@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class OfficeService {
@@ -25,7 +24,9 @@ public class OfficeService {
     private OfficeFilterSpecification officeFilterSpecification;
 
     public OfficeEntity saveNewOffice(OfficeSaveModel model) {
-        return officeRepo.save(OfficeSaveModel.fromModel(model));
+        OfficeEntity entity = OfficeSaveModel.fromModel(model);
+        entity.setOrgId(organizationRepo.findById(model.getOrgId()).get());
+        return officeRepo.save(entity);
     }
 
     public OfficeEntity updateOffice(OfficeUpdateModel model) throws EntityDoesNotExistException {

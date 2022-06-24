@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.stream.Collectors;
 
 @RestController
@@ -21,7 +22,7 @@ public class OfficeController {
     private OfficeService officeService;
 
     @PostMapping("/list")
-    public ResponseEntity getOfficeListByOrgId(@RequestBody OfficeListIn model){
+    public ResponseEntity getOfficeListByOrgId(@RequestBody @Valid OfficeListIn model){
         try {
             return ResponseEntity.ok().body(officeService.getOfficeList(model).stream().map(OfficeListOut::toModel).collect(Collectors.toList()));
         } catch (Exception e){
@@ -39,20 +40,20 @@ public class OfficeController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity updateOffice(@RequestBody OfficeUpdateModel model){
+    public ResponseEntity updateOffice(@RequestBody @Valid OfficeUpdateModel model){
         try {
             officeService.updateOffice(model);
-            return ResponseEntity.ok().body("Office updated!");
+            return ResponseEntity.ok().body("Result: success!");
         } catch (Exception e){
             return ResponseEntity.badRequest().body("Error updating office");
         }
     }
 
     @PostMapping("/save")
-    public ResponseEntity saveOffice(@RequestBody OfficeSaveModel model){
+    public ResponseEntity saveOffice(@RequestBody @Valid OfficeSaveModel model){
         try {
             officeService.saveNewOffice(model);
-            return ResponseEntity.ok().body("Saved office!");
+            return ResponseEntity.ok().body("Result: success!");
         } catch (Exception e){
             return ResponseEntity.badRequest().body("Error saving office");
         }

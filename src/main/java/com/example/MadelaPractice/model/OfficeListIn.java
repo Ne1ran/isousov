@@ -2,7 +2,10 @@ package com.example.MadelaPractice.model;
 
 import com.example.MadelaPractice.entity.OfficeEntity;
 
+import javax.validation.constraints.NotNull;
+
 public class OfficeListIn {
+    @NotNull
     private Long orgId;
     private String name;
     private String phone;

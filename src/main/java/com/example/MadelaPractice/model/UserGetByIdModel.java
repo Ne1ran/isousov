@@ -32,6 +32,9 @@ public class UserGetByIdModel {
         model.setPhone(entity.getPhone());
         model.setLogin(entity.getLogin());
         model.setPassword(entity.getPassword());
+        model.setPosition(entity.getPosition());
+        model.setDocNumber(entity.getDocNumber());
+        model.setDocDate(entity.getDocDate());
         return model;
     }
 

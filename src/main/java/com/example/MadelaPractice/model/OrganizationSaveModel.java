@@ -3,6 +3,7 @@ package com.example.MadelaPractice.model;
 import com.example.MadelaPractice.entity.OrganizationEntity;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 public class OrganizationSaveModel {
     @NotEmpty
@@ -17,7 +18,7 @@ public class OrganizationSaveModel {
     private String address;
     @NotEmpty
     private String phone;
-    @NotEmpty
+    @NotNull
     private Boolean isActive;
 
     public static OrganizationEntity fromModel(OrganizationSaveModel model){
@@ -25,7 +26,7 @@ public class OrganizationSaveModel {
         entity.setActive(model.getActive());
         entity.setName(model.getName());
         entity.setInn(model.getInn());
-        entity.setName(model.getName());
+        entity.setFullName(model.getFullName());
         entity.setPhone(model.getPhone());
         entity.setKpp(model.getKpp());
         entity.setAddress(model.getAddress());

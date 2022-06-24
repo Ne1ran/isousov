@@ -34,7 +34,7 @@ public class UserUpdateInModel {
     @NotEmpty
     private String position;
     @NotNull
-    private Long officeId;
+    private Long office_id;
 
     public static UserGetByIdModel toModel(UserEntity entity){
         UserGetByIdModel model = new UserGetByIdModel();
@@ -49,12 +49,12 @@ public class UserUpdateInModel {
         return model;
     }
 
-    public Long getOfficeId() {
-        return officeId;
+    public Long getOffice_id() {
+        return office_id;
     }
 
-    public void setOfficeId(Long officeId) {
-        this.officeId = officeId;
+    public void setOffice_id(Long office_id) {
+        this.office_id = office_id;
     }
 
     public String getLogin() {

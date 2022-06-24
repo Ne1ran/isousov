@@ -7,6 +7,7 @@ public class OfficeSaveModel {
     private String address;
     private String phone;
     private Boolean isActive;
+    private Long orgId;
 
     public static OfficeEntity fromModel(OfficeSaveModel model){
         OfficeEntity office = new OfficeEntity();
@@ -15,6 +16,14 @@ public class OfficeSaveModel {
         office.setActive(model.getActive());
         office.setAddress(model.getAddress());
         return office;
+    }
+
+    public Long getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(Long orgId) {
+        this.orgId = orgId;
     }
 
     public String getName() {

@@ -3,9 +3,10 @@ package com.example.MadelaPractice.model;
 import com.example.MadelaPractice.entity.OrganizationEntity;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 public class OrganizationUpdateModel {
-    @NotEmpty
+    @NotNull
     private Long id;
     @NotEmpty
     private String name;
@@ -19,7 +20,7 @@ public class OrganizationUpdateModel {
     private String address;
     @NotEmpty
     private String phone;
-    @NotEmpty
+    @NotNull
     private Boolean isActive;
 
     public static OrganizationEntity fromModel(OrganizationUpdateModel model){

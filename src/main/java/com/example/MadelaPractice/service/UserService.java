@@ -55,6 +55,7 @@ public class UserService {
         model.setCitizenshipCode(userRepo.findById(id).get().getCountry_id().getCode());
         model.setCitizenshipName(userRepo.findById(id).get().getCountry_id().getName());
         model.setDocName(userRepo.findById(id).get().getDocument_id().getName());
+        model.setDocCode(userRepo.findById(id).get().getDocument_id().getCode());
         model.setOfficeId(userRepo.findById(id).get().getOffice_id().getId());
         return model;
     }
@@ -63,7 +64,7 @@ public class UserService {
         if (!userRepo.existsById(userUpdateInModel.getId())){
             throw new EntityDoesNotExistException("User with this id doesn't exist!");
         }
-        if (!officeRepo.existsById(userUpdateInModel.getOfficeId())){
+        if (!officeRepo.existsById(userUpdateInModel.getOffice_id())){
             throw new EntityDoesNotExistException("Office with this office_id doesn't exist!");
         }
         if (!docsRepo.existsById(userUpdateInModel.getDocCode())){
@@ -81,7 +82,7 @@ public class UserService {
         userInDB.setDocument_id(docsRepo.findByCode(userUpdateInModel.getDocCode()));
         userInDB.setCountry_id(countryRepo.findByCode(userUpdateInModel.getCitizenshipCode()));
         userInDB.setDocDate(userUpdateInModel.getDocDate());
-        userInDB.setOffice_id(officeRepo.findById(userUpdateInModel.getOfficeId()).get());
+        userInDB.setOffice_id(officeRepo.findById(userUpdateInModel.getOffice_id()).get());
         userInDB.setPosition(userUpdateInModel.getPosition());
         userInDB.setLogin(userUpdateInModel.getLogin());
         userInDB.setPassword(userUpdateInModel.getPassword());
