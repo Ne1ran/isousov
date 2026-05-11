@@ -3,6 +3,9 @@ package com.example.MadelaPractice.model;
 import com.example.MadelaPractice.entity.OrganizationEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Schema(description = "Карточка организации")
 public class OrganizationGetByIdModel {
     private Long id;
@@ -13,6 +16,11 @@ public class OrganizationGetByIdModel {
     private String address;
     private String phone;
     private Boolean isActive;
+    private String email;
+    private String websiteUrl;
+    private LocalDate foundedAt;
+    private LocalDateTime lastModifiedAt;
+    private String shortDescription;
 
     public OrganizationGetByIdModel() {
     }
@@ -27,6 +35,11 @@ public class OrganizationGetByIdModel {
         organization.setActive(organizationEntity.getActive());
         organization.setAddress(organizationEntity.getAddress());
         organization.setPhone(organizationEntity.getPhone());
+        organization.setEmail(organizationEntity.getEmail());
+        organization.setWebsiteUrl(organizationEntity.getWebsiteUrl());
+        organization.setFoundedAt(organizationEntity.getFoundedAt());
+        organization.setLastModifiedAt(organizationEntity.getLastModifiedAt());
+        organization.setShortDescription(organizationEntity.getShortDescription());
         return organization;
     }
 
@@ -93,5 +106,45 @@ public class OrganizationGetByIdModel {
 
     public void setActive(Boolean active) {
         isActive = active;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getWebsiteUrl() {
+        return websiteUrl;
+    }
+
+    public void setWebsiteUrl(String websiteUrl) {
+        this.websiteUrl = websiteUrl;
+    }
+
+    public LocalDate getFoundedAt() {
+        return foundedAt;
+    }
+
+    public void setFoundedAt(LocalDate foundedAt) {
+        this.foundedAt = foundedAt;
+    }
+
+    public LocalDateTime getLastModifiedAt() {
+        return lastModifiedAt;
+    }
+
+    public void setLastModifiedAt(LocalDateTime lastModifiedAt) {
+        this.lastModifiedAt = lastModifiedAt;
+    }
+
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
     }
 }

@@ -1,11 +1,13 @@
 package com.example.MadelaPractice.controller;
 
 import com.example.MadelaPractice.dto.ApiResponse;
+import com.example.MadelaPractice.entity.OfficeEntity;
 import com.example.MadelaPractice.model.OfficeGetModel;
 import com.example.MadelaPractice.model.OfficeListIn;
 import com.example.MadelaPractice.model.OfficeListOut;
 import com.example.MadelaPractice.model.OfficeSaveModel;
 import com.example.MadelaPractice.model.OfficeUpdateModel;
+import com.example.MadelaPractice.model.TargetOrganizationModel;
 import com.example.MadelaPractice.service.OfficeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -68,5 +70,13 @@ public class OfficeController {
     public ResponseEntity<ApiResponse<String>> saveOffice(@RequestBody @Valid OfficeSaveModel model) {
         officeService.saveNewOffice(model);
         return ResponseEntity.ok(ApiResponse.ok("Result: success!"));
+    }
+
+    @PutMapping("/{id}/move-organization")
+    @Operation(summary = "Перенос офиса в другую организацию")
+    public ResponseEntity<ApiResponse<OfficeEntity>> moveOffice(
+            @PathVariable Long id,
+            @RequestBody @Valid TargetOrganizationModel body) {
+        return ResponseEntity.ok(ApiResponse.ok(officeService.moveOfficeToOrganization(id, body)));
     }
 }

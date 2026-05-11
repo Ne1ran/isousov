@@ -2,6 +2,7 @@ package com.example.MadelaPractice.controller;
 
 import com.example.MadelaPractice.dto.ApiResponse;
 import com.example.MadelaPractice.entity.UserEntity;
+import com.example.MadelaPractice.model.IdListModel;
 import com.example.MadelaPractice.exception.ApplicationException;
 import com.example.MadelaPractice.exception.ErrorCodes;
 import com.example.MadelaPractice.model.UserGetByIdModel;
@@ -98,6 +99,14 @@ public class UserController {
     public ResponseEntity<ApiResponse<String>> saveUser(@RequestBody @Valid UserSaveModel userSaveModel) {
         userService.saveNewUser(userSaveModel);
         return ResponseEntity.ok(ApiResponse.ok("Result: success"));
+    }
+
+    @PutMapping("/user/{id}/projects")
+    @Operation(summary = "Замена проектов пользователя (M:N)")
+    public ResponseEntity<ApiResponse<UserEntity>> replaceUserProjects(
+            @PathVariable Long id,
+            @RequestBody @Valid IdListModel body) {
+        return ResponseEntity.ok(ApiResponse.ok(userService.replaceUserProjects(id, body)));
     }
 
     @GetMapping("/activation")

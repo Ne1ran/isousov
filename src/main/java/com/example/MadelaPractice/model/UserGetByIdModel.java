@@ -3,6 +3,8 @@ package com.example.MadelaPractice.model;
 import com.example.MadelaPractice.entity.UserEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Schema(description = "Карточка пользователя")
@@ -23,8 +25,11 @@ public class UserGetByIdModel {
     private String citizenshipName;
     private String docName;
     private Long officeId;
+    private LocalDate hireDate;
+    private LocalDate birthDate;
+    private LocalDateTime lastLoginAt;
 
-    public static UserGetByIdModel toModel(UserEntity entity){
+    public static UserGetByIdModel toModel(UserEntity entity) {
         UserGetByIdModel model = new UserGetByIdModel();
         model.setId(entity.getId());
         model.setFirstName(entity.getFirstName());
@@ -37,6 +42,9 @@ public class UserGetByIdModel {
         model.setPosition(entity.getPosition());
         model.setDocNumber(entity.getDocNumber());
         model.setDocDate(entity.getDocDate());
+        model.setHireDate(entity.getHireDate());
+        model.setBirthDate(entity.getBirthDate());
+        model.setLastLoginAt(entity.getLastLoginAt());
         return model;
     }
 
@@ -166,6 +174,30 @@ public class UserGetByIdModel {
 
     public void setIdentified(Boolean identified) {
         isIdentified = identified;
+    }
+
+    public LocalDate getHireDate() {
+        return hireDate;
+    }
+
+    public void setHireDate(LocalDate hireDate) {
+        this.hireDate = hireDate;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public LocalDateTime getLastLoginAt() {
+        return lastLoginAt;
+    }
+
+    public void setLastLoginAt(LocalDateTime lastLoginAt) {
+        this.lastLoginAt = lastLoginAt;
     }
 
     public UserGetByIdModel() {

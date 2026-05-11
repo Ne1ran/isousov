@@ -3,9 +3,11 @@ package com.example.MadelaPractice.model;
 import com.example.MadelaPractice.entity.OrganizationEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 
 @Schema(description = "Обновление организации")
 public class OrganizationUpdateModel {
@@ -33,16 +35,32 @@ public class OrganizationUpdateModel {
     @NotNull
     private Boolean isActive;
 
-    public static OrganizationEntity fromModel(OrganizationUpdateModel model){
+    @Email
+    @Size(max = 320)
+    private String email;
+
+    @Size(max = 512)
+    private String websiteUrl;
+
+    private LocalDate foundedAt;
+
+    @Size(max = 2000)
+    private String shortDescription;
+
+    public static OrganizationEntity fromModel(OrganizationUpdateModel model) {
         OrganizationEntity entity = new OrganizationEntity();
         entity.setId(model.getId());
         entity.setActive(model.getActive());
         entity.setName(model.getName());
         entity.setInn(model.getInn());
-        entity.setName(model.getName());
+        entity.setFullName(model.getFullName());
         entity.setPhone(model.getPhone());
         entity.setKpp(model.getKpp());
         entity.setAddress(model.getAddress());
+        entity.setEmail(model.getEmail());
+        entity.setWebsiteUrl(model.getWebsiteUrl());
+        entity.setFoundedAt(model.getFoundedAt());
+        entity.setShortDescription(model.getShortDescription());
         return entity;
     }
 
@@ -111,5 +129,37 @@ public class OrganizationUpdateModel {
 
     public void setActive(Boolean active) {
         isActive = active;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getWebsiteUrl() {
+        return websiteUrl;
+    }
+
+    public void setWebsiteUrl(String websiteUrl) {
+        this.websiteUrl = websiteUrl;
+    }
+
+    public LocalDate getFoundedAt() {
+        return foundedAt;
+    }
+
+    public void setFoundedAt(LocalDate foundedAt) {
+        this.foundedAt = foundedAt;
+    }
+
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
     }
 }

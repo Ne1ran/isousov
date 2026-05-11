@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Schema(description = "Обновление пользователя")
@@ -46,6 +47,10 @@ public class UserUpdateInModel {
     private String position;
     @NotNull
     private Long office_id;
+
+    private LocalDate hireDate;
+
+    private LocalDate birthDate;
 
     public static UserGetByIdModel toModel(UserEntity entity){
         UserGetByIdModel model = new UserGetByIdModel();
@@ -170,6 +175,22 @@ public class UserUpdateInModel {
 
     public void setIdentified(Boolean identified) {
         isIdentified = identified;
+    }
+
+    public LocalDate getHireDate() {
+        return hireDate;
+    }
+
+    public void setHireDate(LocalDate hireDate) {
+        this.hireDate = hireDate;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
     }
 
     public UserUpdateInModel() {

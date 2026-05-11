@@ -1,26 +1,46 @@
 package com.example.MadelaPractice.entity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import javax.validation.constraints.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class DocsEntity {
     @Id
+    @NotNull
+    @Column(name = "code", nullable = false)
     private Long code;
+
+    @NotBlank
+    @Size(max = 200)
+    @Column(name = "name", nullable = false, length = 200)
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "document_id")
-    private List<UserEntity> users;
+    @Size(max = 200)
+    @Column(name = "issuer", length = 200)
+    private String issuer;
 
-    public List<UserEntity> getUsers() {
-        return users;
-    }
+    @Column(name = "valid_from")
+    private LocalDate validFrom;
 
-    public void setUsers(List<UserEntity> users) {
-        this.users = users;
+    @Column(name = "valid_to")
+    private LocalDate validTo;
+
+    @Size(max = 64)
+    @Column(name = "doc_category", length = 64)
+    private String docCategory;
+
+    @Min(1)
+    @Max(3650)
+    @Column(name = "max_validity_days")
+    private Integer maxValidityDays;
+
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "document_id", orphanRemoval = false)
+    private List<UserEntity> users = new ArrayList<>();
+
+    public DocsEntity() {
     }
 
     public Long getCode() {
@@ -39,6 +59,51 @@ public class DocsEntity {
         this.name = name;
     }
 
-    public DocsEntity() {
+    public String getIssuer() {
+        return issuer;
+    }
+
+    public void setIssuer(String issuer) {
+        this.issuer = issuer;
+    }
+
+    public LocalDate getValidFrom() {
+        return validFrom;
+    }
+
+    public void setValidFrom(LocalDate validFrom) {
+        this.validFrom = validFrom;
+    }
+
+    public LocalDate getValidTo() {
+        return validTo;
+    }
+
+    public void setValidTo(LocalDate validTo) {
+        this.validTo = validTo;
+    }
+
+    public String getDocCategory() {
+        return docCategory;
+    }
+
+    public void setDocCategory(String docCategory) {
+        this.docCategory = docCategory;
+    }
+
+    public Integer getMaxValidityDays() {
+        return maxValidityDays;
+    }
+
+    public void setMaxValidityDays(Integer maxValidityDays) {
+        this.maxValidityDays = maxValidityDays;
+    }
+
+    public List<UserEntity> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<UserEntity> users) {
+        this.users = users;
     }
 }

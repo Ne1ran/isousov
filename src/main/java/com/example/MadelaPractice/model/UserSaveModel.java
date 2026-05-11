@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Schema(description = "Создание пользователя")
@@ -46,6 +47,10 @@ public class UserSaveModel {
     @Schema(description = "Id офиса")
     private Long office_id;
 
+    private LocalDate hireDate;
+
+    private LocalDate birthDate;
+
     public static UserEntity fromModel(UserSaveModel model){
         UserEntity entity = new UserEntity();
         entity.setFirstName(model.getFirstName());
@@ -58,6 +63,8 @@ public class UserSaveModel {
         entity.setDocNumber(model.getDocNumber());
         entity.setDocDate(model.getDocDate());
         entity.setPosition(model.getPosition());
+        entity.setHireDate(model.getHireDate());
+        entity.setBirthDate(model.getBirthDate());
         return entity;
     }
 
@@ -163,6 +170,22 @@ public class UserSaveModel {
 
     public void setIdentified(Boolean identified) {
         isIdentified = identified;
+    }
+
+    public LocalDate getHireDate() {
+        return hireDate;
+    }
+
+    public void setHireDate(LocalDate hireDate) {
+        this.hireDate = hireDate;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
     }
 
     public UserSaveModel() {
