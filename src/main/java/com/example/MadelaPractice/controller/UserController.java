@@ -52,6 +52,28 @@ public class UserController {
         }
     }
 
+    @GetMapping("/users")
+    public ResponseEntity getAllUsersList() {
+        try {
+            return ResponseEntity.ok().body(userService.getAllUsers().stream()
+                    .map(UserListOut::toModel).collect(Collectors.toList()));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/user/{id}")
+    public ResponseEntity deleteUser(@PathVariable Long id) {
+        try {
+            userService.deleteUserById(id);
+            return ResponseEntity.ok().body("Result: success");
+        } catch (EntityDoesNotExistException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
     @PostMapping("/user/list")
     public ResponseEntity getAllUsers(@RequestBody @Valid UserListInModel model){
         try {

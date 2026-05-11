@@ -1,12 +1,9 @@
 package com.example.MadelaPractice.controller;
 
-import com.example.MadelaPractice.entity.OrganizationEntity;
 import com.example.MadelaPractice.model.OrganizationListIn;
 import com.example.MadelaPractice.model.OrganizationListOut;
 import com.example.MadelaPractice.model.OrganizationSaveModel;
 import com.example.MadelaPractice.model.OrganizationUpdateModel;
-import com.example.MadelaPractice.repository.OrganizationRepo;
-import com.example.MadelaPractice.repository.UserRepo;
 import com.example.MadelaPractice.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +17,26 @@ import java.util.stream.Collectors;
 public class OrganizationController {
 
     @Autowired OrganizationService organizationService;
+
+    @GetMapping
+    public ResponseEntity getAllOrganizations() {
+        try {
+            return ResponseEntity.ok().body(organizationService.getAllOrganizations().stream()
+                    .map(OrganizationListOut::toModel).collect(Collectors.toList()));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteOrganization(@PathVariable Long id) {
+        try {
+            organizationService.deleteOrganizationById(id);
+            return ResponseEntity.ok().body("Result: success!");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 
     @PostMapping("/list")
     public ResponseEntity getOrganizationsList(@RequestBody @Valid OrganizationListIn organizationListIn){

@@ -1,11 +1,9 @@
 package com.example.MadelaPractice.controller;
 
-import com.example.MadelaPractice.entity.OfficeEntity;
 import com.example.MadelaPractice.model.OfficeListIn;
 import com.example.MadelaPractice.model.OfficeListOut;
 import com.example.MadelaPractice.model.OfficeSaveModel;
 import com.example.MadelaPractice.model.OfficeUpdateModel;
-import com.example.MadelaPractice.repository.OfficeRepo;
 import com.example.MadelaPractice.service.OfficeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +18,26 @@ public class OfficeController {
 
     @Autowired
     private OfficeService officeService;
+
+    @GetMapping
+    public ResponseEntity getAllOffices() {
+        try {
+            return ResponseEntity.ok().body(officeService.getAllOffices().stream()
+                    .map(OfficeListOut::toModel).collect(Collectors.toList()));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteOffice(@PathVariable Long id) {
+        try {
+            officeService.deleteOfficeById(id);
+            return ResponseEntity.ok().body("Result: success!");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 
     @PostMapping("/list")
     public ResponseEntity getOfficeListByOrgId(@RequestBody @Valid OfficeListIn model){

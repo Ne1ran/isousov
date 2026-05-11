@@ -5,11 +5,15 @@ import com.example.MadelaPractice.exception.EntityDoesNotExistException;
 import com.example.MadelaPractice.model.*;
 import com.example.MadelaPractice.repository.OfficeRepo;
 import com.example.MadelaPractice.repository.OrganizationRepo;
+import com.example.MadelaPractice.repository.UserRepo;
 import com.example.MadelaPractice.specification.OfficeFilterSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class OfficeService {
@@ -22,6 +26,23 @@ public class OfficeService {
 
     @Autowired
     private OfficeFilterSpecification officeFilterSpecification;
+
+    @Autowired
+    private UserRepo userRepo;
+
+    public List<OfficeEntity> getAllOffices() {
+        return StreamSupport.stream(officeRepo.findAll().spliterator(), false)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void deleteOfficeById(Long id) throws EntityDoesNotExistException {
+        if (!officeRepo.existsById(id)) {
+            throw new EntityDoesNotExistException("Office with this id doesn't exist for searching!");
+        }
+        userRepo.deleteAll(userRepo.findByOfficeId(id));
+        officeRepo.deleteById(id);
+    }
 
     public OfficeEntity saveNewOffice(OfficeSaveModel model) {
         OfficeEntity entity = OfficeSaveModel.fromModel(model);

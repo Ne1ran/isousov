@@ -11,8 +11,11 @@ import com.example.MadelaPractice.repository.UserRepo;
 import com.example.MadelaPractice.specification.UserFilterSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class UserService {
@@ -31,6 +34,19 @@ public class UserService {
 
     @Autowired
     private UserFilterSpecification userFilterSpecification;
+
+    public List<UserEntity> getAllUsers() {
+        return StreamSupport.stream(userRepo.findAll().spliterator(), false)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void deleteUserById(Long id) throws EntityDoesNotExistException {
+        if (!userRepo.existsById(id)) {
+            throw new EntityDoesNotExistException("User doesn't exist!");
+        }
+        userRepo.deleteById(id);
+    }
 
     public UserEntity registation(UserEntity userEntity) throws EntityAlreadyExistsException {
         if (userRepo.findByLogin(userEntity.getLogin()) != null){

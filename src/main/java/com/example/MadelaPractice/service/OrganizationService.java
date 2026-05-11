@@ -1,17 +1,21 @@
 package com.example.MadelaPractice.service;
 
+import com.example.MadelaPractice.entity.OfficeEntity;
 import com.example.MadelaPractice.entity.OrganizationEntity;
 import com.example.MadelaPractice.exception.EntityDoesNotExistException;
 import com.example.MadelaPractice.exception.NoNameException;
 import com.example.MadelaPractice.model.*;
+import com.example.MadelaPractice.repository.OfficeRepo;
 import com.example.MadelaPractice.repository.OrganizationRepo;
+import com.example.MadelaPractice.repository.UserRepo;
 import com.example.MadelaPractice.specification.OrganizationFilterSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class OrganizationService {
@@ -21,6 +25,30 @@ public class OrganizationService {
 
     @Autowired
     private OrganizationFilterSpecification organizationFilterSpecification;
+
+    @Autowired
+    private OfficeRepo officeRepo;
+
+    @Autowired
+    private UserRepo userRepo;
+
+    public List<OrganizationEntity> getAllOrganizations() {
+        return StreamSupport.stream(organizationRepo.findAll().spliterator(), false)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void deleteOrganizationById(Long id) throws EntityDoesNotExistException {
+        if (!organizationRepo.existsById(id)) {
+            throw new EntityDoesNotExistException("Entity with this id doesn't exist!");
+        }
+        List<OfficeEntity> offices = officeRepo.findByOrganizationId(id);
+        for (OfficeEntity office : offices) {
+            userRepo.deleteAll(userRepo.findByOfficeId(office.getId()));
+            officeRepo.deleteById(office.getId());
+        }
+        organizationRepo.deleteById(id);
+    }
 
     public List<OrganizationEntity> getOrganizationsListByName(OrganizationListIn organizationListIn) throws NoNameException {
         if (organizationListIn.getName() == null){
