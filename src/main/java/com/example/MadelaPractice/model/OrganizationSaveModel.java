@@ -1,24 +1,37 @@
 package com.example.MadelaPractice.model;
 
 import com.example.MadelaPractice.entity.OrganizationEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
+@Schema(description = "Тело запроса: создание организации")
 public class OrganizationSaveModel {
-    @NotEmpty
+    @NotBlank
+    @Size(max = 255)
+    @Schema(example = "ООО Тест")
     private String name;
-    @NotEmpty
+    @NotBlank
+    @Size(max = 512)
     private String fullName;
-    @NotEmpty
+    @NotBlank
+    @Size(max = 20)
+    @Schema(description = "ИНН", example = "7707083893")
     private String inn;
-    @NotEmpty
+    @NotBlank
+    @Size(max = 20)
+    @Schema(description = "КПП", example = "770701001")
     private String kpp;
-    @NotEmpty
+    @NotBlank
+    @Size(max = 500)
     private String address;
-    @NotEmpty
+    @NotBlank
+    @Size(max = 50)
     private String phone;
     @NotNull
+    @Schema(description = "Признак активности")
     private Boolean isActive;
 
     public static OrganizationEntity fromModel(OrganizationSaveModel model){

@@ -41,21 +41,21 @@ public class UserService {
     }
 
     @Transactional
-    public void deleteUserById(Long id) throws EntityDoesNotExistException {
+    public void deleteUserById(Long id) {
         if (!userRepo.existsById(id)) {
             throw new EntityDoesNotExistException("User doesn't exist!");
         }
         userRepo.deleteById(id);
     }
 
-    public UserEntity registation(UserEntity userEntity) throws EntityAlreadyExistsException {
+    public UserEntity registation(UserEntity userEntity) {
         if (userRepo.findByLogin(userEntity.getLogin()) != null){
             throw new EntityAlreadyExistsException("User with this login already exists!");
         }
         return userRepo.save(userEntity);
     }
 
-    public UserEntity login(String login, String password) throws EntityDoesNotExistException {
+    public UserEntity login(String login, String password) {
         UserEntity user = userRepo.findByLoginAndPassword(login, password);
         if (user == null){
             throw new EntityDoesNotExistException("User doesn't exist!");
@@ -63,7 +63,7 @@ public class UserService {
         return user;
     }
 
-    public UserGetByIdModel getUser(Long id) throws EntityDoesNotExistException {
+    public UserGetByIdModel getUser(Long id) {
         if (!userRepo.existsById(id)){
             throw new EntityDoesNotExistException("User doesn't exist!");
         }
@@ -76,7 +76,7 @@ public class UserService {
         return model;
     }
 
-    public UserEntity updateUser(UserUpdateInModel userUpdateInModel) throws EntityDoesNotExistException{
+    public UserEntity updateUser(UserUpdateInModel userUpdateInModel) {
         if (!userRepo.existsById(userUpdateInModel.getId())){
             throw new EntityDoesNotExistException("User with this id doesn't exist!");
         }
@@ -110,7 +110,7 @@ public class UserService {
                 model.getLastName(), model.getMiddleName(), model.getPosition(), model.getDocCode(), model.getCitizenshipCode());
     }
 
-    public UserEntity saveNewUser(UserSaveModel userSaveModel) throws EntityDoesNotExistException {
+    public UserEntity saveNewUser(UserSaveModel userSaveModel) {
         if (!docsRepo.existsById(userSaveModel.getDocCode())){
             throw new EntityDoesNotExistException("Documents with this code doesn't exist!");
         }

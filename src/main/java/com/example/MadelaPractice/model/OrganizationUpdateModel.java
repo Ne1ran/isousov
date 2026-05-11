@@ -1,24 +1,34 @@
 package com.example.MadelaPractice.model;
 
 import com.example.MadelaPractice.entity.OrganizationEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
+@Schema(description = "Обновление организации")
 public class OrganizationUpdateModel {
     @NotNull
+    @Schema(description = "Идентификатор организации")
     private Long id;
-    @NotEmpty
+    @NotBlank
+    @Size(max = 255)
     private String name;
-    @NotEmpty
+    @NotBlank
+    @Size(max = 512)
     private String fullName;
-    @NotEmpty
+    @NotBlank
+    @Size(max = 20)
     private String inn;
-    @NotEmpty
+    @NotBlank
+    @Size(max = 20)
     private String kpp;
-    @NotEmpty
+    @NotBlank
+    @Size(max = 500)
     private String address;
-    @NotEmpty
+    @NotBlank
+    @Size(max = 50)
     private String phone;
     @NotNull
     private Boolean isActive;

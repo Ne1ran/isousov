@@ -1,7 +1,9 @@
 package com.example.MadelaPractice.model;
 
 import com.example.MadelaPractice.entity.OrganizationEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
 
+@Schema(description = "Карточка организации")
 public class OrganizationGetByIdModel {
     private Long id;
     private String name;

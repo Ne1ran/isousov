@@ -1,7 +1,9 @@
 package com.example.MadelaPractice.model;
 
 import com.example.MadelaPractice.entity.UserEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
 
+@Schema(description = "Элемент списка пользователей")
 public class UserListOut {
     private Long id;
     private String firstName;

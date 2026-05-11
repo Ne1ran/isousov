@@ -1,9 +1,11 @@
 package com.example.MadelaPractice.model;
 
 import com.example.MadelaPractice.entity.UserEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.Date;
 
+@Schema(description = "Карточка пользователя")
 public class UserGetByIdModel {
     private Long id;
     private String login;

@@ -1,15 +1,21 @@
 package com.example.MadelaPractice.model;
 
 import com.example.MadelaPractice.entity.UserEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
+@Schema(description = "Регистрация пользователя (шаг 1)")
 public class UserRegistationModel {
-    @NotEmpty(message = "No login")
+    @NotBlank(message = "No login")
+    @Size(max = 64)
     private String login;
-    @NotEmpty(message = "No password")
+    @NotBlank(message = "No password")
+    @Size(max = 128)
     private String password;
-    @NotEmpty(message = "No name")
+    @NotBlank(message = "No name")
+    @Size(max = 100)
     private String firstName;
 
     public static UserEntity fromModel(UserRegistationModel model){

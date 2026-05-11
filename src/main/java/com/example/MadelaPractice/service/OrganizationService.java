@@ -38,7 +38,7 @@ public class OrganizationService {
     }
 
     @Transactional
-    public void deleteOrganizationById(Long id) throws EntityDoesNotExistException {
+    public void deleteOrganizationById(Long id) {
         if (!organizationRepo.existsById(id)) {
             throw new EntityDoesNotExistException("Entity with this id doesn't exist!");
         }
@@ -50,14 +50,14 @@ public class OrganizationService {
         organizationRepo.deleteById(id);
     }
 
-    public List<OrganizationEntity> getOrganizationsListByName(OrganizationListIn organizationListIn) throws NoNameException {
+    public List<OrganizationEntity> getOrganizationsListByName(OrganizationListIn organizationListIn) {
         if (organizationListIn.getName() == null){
             throw new NoNameException("There is no name to start searching!"); }
         return organizationFilterSpecification.findOrganizationFilter(organizationListIn.getName(), organizationListIn.getInn(),
                 organizationListIn.getActive());
     }
 
-    public OrganizationGetByIdModel getOrgById(Long id) throws EntityDoesNotExistException {
+    public OrganizationGetByIdModel getOrgById(Long id) {
         if (!organizationRepo.existsById(id)){
             throw new EntityDoesNotExistException("Entity with this id doesn't exist!");
         }
@@ -68,7 +68,7 @@ public class OrganizationService {
         return organizationRepo.save(OrganizationSaveModel.fromModel(model));
     }
 
-    public OrganizationEntity updateOrganization(OrganizationUpdateModel model) throws EntityDoesNotExistException {
+    public OrganizationEntity updateOrganization(OrganizationUpdateModel model) {
         if (!organizationRepo.existsById(model.getId())){
             throw new EntityDoesNotExistException("There is no entity with this id");
         }

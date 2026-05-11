@@ -1,7 +1,10 @@
 package com.example.MadelaPractice.exception;
 
-public class NoNameException extends Exception{
+import org.springframework.http.HttpStatus;
+
+public class NoNameException extends ApplicationException {
+
     public NoNameException(String message) {
-        super(message);
+        super(ErrorCodes.NAME_REQUIRED, HttpStatus.BAD_REQUEST, message);
     }
 }

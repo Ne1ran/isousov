@@ -1,12 +1,18 @@
 package com.example.MadelaPractice.model;
 
 import com.example.MadelaPractice.entity.OrganizationEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
+@Schema(description = "Фильтр списка организаций")
 public class OrganizationListIn {
-    @NotEmpty(message = "There is no name to start searching!")
+    @NotBlank(message = "There is no name to start searching!")
+    @Size(max = 255)
+    @Schema(example = "ООО")
     private String name;
+    @Size(max = 12)
     private String inn;
     private Boolean isActive;
 

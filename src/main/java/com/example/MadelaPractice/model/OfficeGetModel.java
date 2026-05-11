@@ -1,7 +1,9 @@
 package com.example.MadelaPractice.model;
 
 import com.example.MadelaPractice.entity.OfficeEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
 
+@Schema(description = "Карточка офиса")
 public class OfficeGetModel {
     private Long id;
     private String name;

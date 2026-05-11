@@ -1,13 +1,18 @@
 package com.example.MadelaPractice.model;
 
-import com.example.MadelaPractice.entity.OfficeEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
+@Schema(description = "Фильтр списка офисов")
 public class OfficeListIn {
     @NotNull
+    @Schema(description = "Id организации")
     private Long orgId;
+    @Size(max = 255)
     private String name;
+    @Size(max = 50)
     private String phone;
     private Boolean isActive;
 

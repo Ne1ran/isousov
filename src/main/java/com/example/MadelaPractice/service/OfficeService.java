@@ -36,7 +36,7 @@ public class OfficeService {
     }
 
     @Transactional
-    public void deleteOfficeById(Long id) throws EntityDoesNotExistException {
+    public void deleteOfficeById(Long id) {
         if (!officeRepo.existsById(id)) {
             throw new EntityDoesNotExistException("Office with this id doesn't exist for searching!");
         }
@@ -45,12 +45,15 @@ public class OfficeService {
     }
 
     public OfficeEntity saveNewOffice(OfficeSaveModel model) {
+        if (!organizationRepo.existsById(model.getOrgId())) {
+            throw new EntityDoesNotExistException("Organization with this orgId doesn't exist!");
+        }
         OfficeEntity entity = OfficeSaveModel.fromModel(model);
         entity.setOrgId(organizationRepo.findById(model.getOrgId()).get());
         return officeRepo.save(entity);
     }
 
-    public OfficeEntity updateOffice(OfficeUpdateModel model) throws EntityDoesNotExistException {
+    public OfficeEntity updateOffice(OfficeUpdateModel model) {
         if (!officeRepo.existsById(model.getId())){
             throw new EntityDoesNotExistException("Office with this id doesn't exist for updating!");
         }
@@ -66,14 +69,14 @@ public class OfficeService {
         return officeRepo.save(officeInDB);
     }
 
-    public OfficeGetModel getOfficeById(Long id) throws EntityDoesNotExistException {
+    public OfficeGetModel getOfficeById(Long id) {
         if (!officeRepo.existsById(id)){
             throw new EntityDoesNotExistException("Office with this id doesn't exist for searching!");
         }
         return OfficeGetModel.toModel(officeRepo.findById(id).get());
     }
 
-    public List<OfficeEntity> getOfficeList(OfficeListIn officeListIn) throws EntityDoesNotExistException {
+    public List<OfficeEntity> getOfficeList(OfficeListIn officeListIn) {
         if (!organizationRepo.existsById(officeListIn.getOrgId())){
             throw new EntityDoesNotExistException("Organization for office with this orgId doesn't exist!");
         }

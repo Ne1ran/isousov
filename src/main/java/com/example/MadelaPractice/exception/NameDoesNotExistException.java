@@ -1,7 +1,10 @@
 package com.example.MadelaPractice.exception;
 
-public class NameDoesNotExistException extends Exception{
+import org.springframework.http.HttpStatus;
+
+public class NameDoesNotExistException extends ApplicationException {
+
     public NameDoesNotExistException(String message) {
-        super(message);
+        super(ErrorCodes.NAME_NOT_FOUND, HttpStatus.NOT_FOUND, message);
     }
 }

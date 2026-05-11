@@ -1,12 +1,27 @@
 package com.example.MadelaPractice.model;
 
 import com.example.MadelaPractice.entity.OfficeEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+@Schema(description = "Создание офиса")
 public class OfficeSaveModel {
+    @NotBlank
+    @Size(max = 255)
     private String name;
+    @NotBlank
+    @Size(max = 500)
     private String address;
+    @NotBlank
+    @Size(max = 50)
     private String phone;
+    @NotNull
     private Boolean isActive;
+    @NotNull
+    @Schema(description = "Id организации-владельца")
     private Long orgId;
 
     public static OfficeEntity fromModel(OfficeSaveModel model){

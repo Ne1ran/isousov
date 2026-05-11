@@ -1,15 +1,22 @@
 package com.example.MadelaPractice.model;
 
-import com.example.MadelaPractice.entity.UserEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
+@Schema(description = "Фильтр списка пользователей")
 public class UserListInModel {
     @NotNull(message = "You didn't print officeId to start search!")
+    @Schema(description = "Id офиса для выборки")
     private Long officeId;
+    @Size(max = 100)
     private String firstName;
+    @Size(max = 100)
     private String lastName;
+    @Size(max = 100)
     private String middleName;
+    @Size(max = 200)
     private String position;
     private Long docCode;
     private Long citizenshipCode;

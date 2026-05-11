@@ -1,27 +1,37 @@
 package com.example.MadelaPractice.model;
 
 import com.example.MadelaPractice.entity.UserEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
+@Schema(description = "Создание пользователя")
 public class UserSaveModel {
-    @NotEmpty
+    @NotBlank
+    @Size(max = 64)
     private String login;
-    @NotEmpty
+    @NotBlank
+    @Size(max = 128)
     private String password;
-    @NotEmpty
+    @NotBlank
+    @Size(max = 100)
     private String firstName;
-    @NotEmpty
+    @NotBlank
+    @Size(max = 100)
     private String lastName;
-    @NotEmpty
+    @NotBlank
+    @Size(max = 100)
     private String middleName;
-    @NotEmpty
+    @NotBlank
+    @Size(max = 32)
     private String phone;
     @NotNull
     private Long docCode;
-    @NotEmpty
+    @NotBlank
+    @Size(max = 64)
     private String docNumber;
     @NotNull
     private Date docDate;
@@ -29,9 +39,11 @@ public class UserSaveModel {
     private Long citizenshipCode;
     @NotNull
     private Boolean isIdentified;
-    @NotEmpty
+    @NotBlank
+    @Size(max = 200)
     private String position;
     @NotNull
+    @Schema(description = "Id офиса")
     private Long office_id;
 
     public static UserEntity fromModel(UserSaveModel model){
